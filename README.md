@@ -1,4 +1,16 @@
 rustenstein3D
 =============
 
-Wolfenstein3D engine in rust
+Simple Wolfenstein3D engine in rust.
+
+Compilation
+===========
+
+First install rust-sfml in the rustenstein3D workspace.
+
+Then use rustpkg to build rustenstein3D.
+
+```Shell
+> rustpkg install rustenstein3D
+```
+
