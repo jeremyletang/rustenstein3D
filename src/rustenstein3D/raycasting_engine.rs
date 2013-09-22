@@ -277,24 +277,18 @@ impl REngine {
                 self.player_position.y -= self.vector_direction.y * 0.1;
             }
         }
-        if event_handler.is_key_pressed(keyboard::Right) {
-            let old_dir_x = self.vector_direction.x;
-            self.vector_direction.x = self.vector_direction.x * (-0.1f32).cos() - self.vector_direction.y * (-0.1f32).sin();
-            self.vector_direction.y = old_dir_x * (-0.1f32).sin() + self.vector_direction.y * (-0.1f32).cos();
-            let old_cam_plane_x = self.cam_plane.x;
-            self.cam_plane.x = self.cam_plane.x * (-0.1f32).cos() - self.cam_plane.y * (-0.1f32).sin();
-            self.cam_plane.y = old_cam_plane_x * (-0.1f32).sin() + self.cam_plane.y * (-0.1f32).cos();
-        }
 
-        if event_handler.is_key_pressed(keyboard::Left) {
-            let old_dir_x = self.vector_direction.x;
-            self.vector_direction.x = self.vector_direction.x * (0.1f32).cos() - self.vector_direction.y * (0.1f32).sin();
-            self.vector_direction.y = old_dir_x * (0.1f32).sin() + self.vector_direction.y * (0.1f32).cos();
-            let old_cam_plane_x = self.cam_plane.x;
-            self.cam_plane.x = self.cam_plane.x * (0.1f32).cos() - self.cam_plane.y * (0.1f32).sin();
-            self.cam_plane.y = old_cam_plane_x * (0.1f32).sin() + self.cam_plane.y * (0.1f32).cos();
-        }
+        let move : f32 = match event_handler.has_mouse_moved_event() {
+            Some((x, _))    => x as f32 - (self.window_size.x  / 2.) as f32,
+            None            => 0.
+        } / -100.;
 
+        let old_dir_x = self.vector_direction.x;
+        self.vector_direction.x = self.vector_direction.x * (move).cos() - self.vector_direction.y * (move).sin();
+        self.vector_direction.y = old_dir_x * (move).sin() + self.vector_direction.y * (move).cos();
+        let old_cam_plane_x = self.cam_plane.x;
+        self.cam_plane.x = self.cam_plane.x * (move).cos() - self.cam_plane.y * (move).sin();
+        self.cam_plane.y = old_cam_plane_x * (move).sin() + self.cam_plane.y * (move).cos();
     }
 
     fn create_line_array<'r>(window_size : &'r Vector2f) -> ~[~VertexArray] {

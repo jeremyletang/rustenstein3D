@@ -11,6 +11,7 @@ extern mod rsfml;
 
 use rsfml::graphics::{RenderWindow, Font, sfClose};
 use rsfml::window::{VideoMode, ContextSettings};
+use rsfml::system::Vector2i;
 
 use std::os;
 use std::from_str::*;
@@ -84,6 +85,12 @@ fn main() -> () {
     
     // set the framerate limit to 30 fps.
     render_window.set_framerate_limit(45);
+
+    // hide the cursor.
+    render_window.set_mouse_cursor_visible(false);
+
+    // set the mouse positon on the center of the window
+    render_window.set_mouse_position(&Vector2i {x : width as i32 / 2, y : height as i32 / 2});
 
     // Create the font for the FPS_handler.
     let font = @Font::new_from_file(~"./resources/sansation.ttf").expect("Error : Cannot load font, font resources/sansation.ttf doesn.t exist!");

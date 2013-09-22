@@ -1,6 +1,6 @@
 
 use rsfml::graphics::RenderWindow;
-use rsfml::system::{Vector2u, Vector2f, ToVec};
+use rsfml::system::{Vector2u, Vector2f, Vector2i, ToVec};
 use rsfml::window::keyboard;
 
 use map;
@@ -92,5 +92,7 @@ impl<'self> GameMode<'self> {
         }
         self.hud.draw(render_window);
         self.weapon.draw(render_window);
+        render_window.set_mouse_cursor_visible(false);
+        render_window.set_mouse_position(&Vector2i::new((self.window_size.x / 2) as i32, (self.window_size.y / 2) as i32));
     }
 }
