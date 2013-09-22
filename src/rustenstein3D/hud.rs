@@ -42,28 +42,6 @@ impl<'self> HUD<'self> {
     }
 
     pub fn draw(&mut self, render_window : &mut RenderWindow) -> () {
-        // render_window.draw(&self.background);
-        // let mut border = VertexArray::new().unwrap();
-        // border.set_primitive_type(LinesStrip);
-        // border.append(&Vertex::new_with_pos_color(~Vector2f {x : self.window_size.x - 9., y : self.window_size.y - 70.}, &Color::new_RGBA(255, 255, 255, 75)));
-        // border.append(&Vertex::new_with_pos_color(~Vector2f {x : self.window_size.x - 9., y : self.window_size.y - 10.}, &Color::new_RGBA(255, 255, 255, 75)));
-        // border.append(&Vertex::new_with_pos_color(~Vector2f {x : 9., y : self.window_size.y - 10.}, &Color::new_RGBA(255, 255, 255, 75)));
-        // render_window.draw(&border);
-        // border.clear();
-        // border.append(&Vertex::new_with_pos_color(~Vector2f {x : self.window_size.x - 11., y : self.window_size.y - 70.}, &Color::black()));
-        // border.append(&Vertex::new_with_pos_color(~Vector2f {x : self.window_size.x - 11., y : self.window_size.y - 12.}, &Color::black()));
-        // border.append(&Vertex::new_with_pos_color(~Vector2f {x : 11., y : self.window_size.y - 12.}, &Color::black()));
-        // render_window.draw(&border);
-        // border.clear();
-        // border.append(&Vertex::new_with_pos_color(~Vector2f {x : 9., y : self.window_size.y - 12.}, &Color::black()));
-        // border.append(&Vertex::new_with_pos_color(~Vector2f {x : 9., y : self.window_size.y - 71.}, &Color::black()));
-        // border.append(&Vertex::new_with_pos_color(~Vector2f {x : self.window_size.x - 9., y : self.window_size.y - 71.}, &Color::black()));
-        // render_window.draw(&border);
-        // border.clear();
-        // border.append(&Vertex::new_with_pos_color(~Vector2f {x : 11., y : self.window_size.y - 11.}, &Color::new_RGBA(255, 255, 255, 75)));
-        // border.append(&Vertex::new_with_pos_color(~Vector2f {x : 11., y : self.window_size.y - 69.}, &Color::new_RGBA(255, 255, 255, 75)));
-        // border.append(&Vertex::new_with_pos_color(~Vector2f {x : self.window_size.x - 11., y : self.window_size.y - 69.}, &Color::new_RGBA(255, 255, 255, 75)));
-        // render_window.draw(&border);
         self.draw_2line(self.window_size.x - 9., self.window_size.x - 9., 9., self.window_size.y - 70., self.window_size.y - 10., self.window_size.y - 10., &Color::new_RGBA(255, 255, 255, 75), render_window);
         self.draw_2line(self.window_size.x - 11., self.window_size.x - 11., 11., self.window_size.y - 70., self.window_size.y - 12., self.window_size.y - 12., &Color::black(), render_window);
         self.draw_2line(9., 9., self.window_size.x - 9., self.window_size.y - 12., self.window_size.y - 71., self.window_size.y - 71., &Color::black(), render_window);
