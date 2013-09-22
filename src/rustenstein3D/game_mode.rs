@@ -32,7 +32,7 @@ impl<'self> GameMode<'self> {
             player_position : Vector2f { x : 4., y : 1. },
             r_engine : REngine::new(map, &window_size.to_vector2f()),
             texture_loader : texture_loader,
-            hud : HUD::new(&window_size.to_vector2f()),
+            hud : HUD::new(&window_size.to_vector2f(), texture_loader),
             weapon : Weapon::new(&window_size.to_vector2f(), texture_loader)
         }
     }

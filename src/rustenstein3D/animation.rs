@@ -12,6 +12,9 @@ pub enum AnimationMode {
 }
 
 pub struct Animation {
+    priv a : u32,
+    priv b : u32,
+    priv offset : u32,
     priv texture_ids : ~[i32],
     priv state : AnimationState,
     priv mode : AnimationMode,
@@ -21,8 +24,11 @@ pub struct Animation {
 }
 
 impl Animation {
-    pub fn new(texture_ids : ~[i32], state : AnimationState, mode : AnimationMode, lag : f32) -> Animation {
+    pub fn new(texture_ids : ~[i32], state : AnimationState, mode : AnimationMode, lag : f32, offset : u32) -> Animation {
         Animation {
+            a : 0,
+            b : texture_ids.len() as u32,
+            offset : offset,
             texture_ids : texture_ids,
             state : state,
             mode : mode,
@@ -36,7 +42,7 @@ impl Animation {
         self.state = new_state;
         match new_state {
             Stop    => { self.current_texture = 0; self.clock.restart(); },
-            Play    => { self.current_texture = 0; self.clock.restart(); },
+            Play    => { if self.offset <= self.current_texture { self.current_texture = 0; self.clock.restart();} },
             _       => {}
         }
     }
@@ -59,6 +65,16 @@ impl Animation {
 
     pub fn get_current_texture_id(&self) -> i32 {
         self.texture_ids[self.current_texture]
+    }
+
+    pub fn set_loop_anim(&mut self, a : u32, b : u32) -> () {
+        self.a = a;
+        self.b = b;
+
+    }
+
+    pub fn set_need_anim_offset(&mut self, offset : u32) -> () {
+        self.offset = offset
     }
 
     pub fn update(&mut self) -> () {

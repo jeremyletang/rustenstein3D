@@ -54,7 +54,10 @@ fn load_texture() -> texture_loader::TextureLoader {
        texture_loader.load_texture(~"./resources/gun_4.png") == false ||
        texture_loader.load_texture(~"./resources/gun_5.png") == false ||
        texture_loader.load_texture(~"./resources/gun_6.png") == false ||
-       texture_loader.load_texture(~"./resources/gun_shadow.png") == false {
+       texture_loader.load_texture(~"./resources/gun_shadow.png") == false ||
+       texture_loader.load_texture(~"./resources/face1.png") == false ||
+       texture_loader.load_texture(~"./resources/face2.png") == false ||
+       texture_loader.load_texture(~"./resources/face3.png") == false {
         fail!("Error : Cannot load texture.");
     }
     texture_loader
@@ -84,7 +87,7 @@ fn main() -> () {
     let render_window = @mut RenderWindow::new(video_mode, ~"Rustenstein3D", sfClose, &settings).expect("Error : Cannot create a render_window!");
     
     // set the framerate limit to 30 fps.
-    render_window.set_framerate_limit(45);
+    render_window.set_framerate_limit(40);
 
     // hide the cursor.
     render_window.set_mouse_cursor_visible(false);

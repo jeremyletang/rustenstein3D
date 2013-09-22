@@ -1,22 +1,33 @@
 use rsfml::graphics::{RectangleShape, RenderWindow, Color, Vertex, VertexArray, LinesStrip};
-use rsfml::system::Vector2f;
+use rsfml::system::{Vector2f, Clock};
+
+use texture_loader::TextureLoader;
+use animation::*;
 
 pub struct HUD<'self> {
     priv window_size : Vector2f,
     priv background : RectangleShape<'self>,
-    priv face : i32,
-    priv hud_vertex_array : VertexArray
+    priv hud_vertex_array : VertexArray,
+    priv face : RectangleShape<'self>,
+    priv face_animation : Animation,
+    priv texture_loader : &'self TextureLoader,
+    priv face_clock : Clock
 }
 
 impl<'self> HUD<'self> {
-    pub fn new(window_size : &Vector2f) -> HUD<'self> {
+    pub fn new(window_size : &Vector2f, texture_loader : &'self TextureLoader) -> HUD<'self> {
         let mut array = VertexArray::new().unwrap();
         array.set_primitive_type(LinesStrip);
+        let mut tmp_face = RectangleShape::new_init(&Vector2f {x : 43., y : 58.}).unwrap();
+        tmp_face.set_position2f(window_size.x / 2. - 21., window_size.y - 71.);
         HUD {
             window_size : window_size.clone(),
             background : RectangleShape::new().unwrap(),
-            face : 0,
-            hud_vertex_array : array
+            hud_vertex_array : array,
+            face : tmp_face,
+            face_animation : Animation::new(~[19, 20, 21], Play, PlayOnce, 1., 0),
+            texture_loader : texture_loader,
+            face_clock : Clock::new()
         }
     }
 
@@ -24,6 +35,12 @@ impl<'self> HUD<'self> {
         self.background.set_size2f(self.window_size.x - 21., 59.);
         self.background.set_fill_color(~Color::new_RGB(6, 1, 162));
         self.background.set_position2f(10., self.window_size.y - 70.);
+        self.face_animation.update();
+        self.face.set_texture(self.texture_loader.get_texture(self.face_animation.get_current_texture_id()), false);
+        if self.face_clock.get_elapsed_time().as_seconds() >= 7. {
+            self.face_animation.set_state(Play);
+            self.face_clock.restart();
+        } 
     }
 
     fn draw_line(&mut self, x1 : f32, x2 : f32, y1 : f32, y2 : f32, color : &Color, render_window : &mut RenderWindow) -> () {
@@ -49,5 +66,6 @@ impl<'self> HUD<'self> {
         self.draw_2line(11., 11., self.window_size.x - 11., self.window_size.y - 11., self.window_size.y - 69., self.window_size.y - 69., &Color::new_RGBA(255, 255, 255, 75), render_window);
         self.draw_line(self.window_size.x, 0., self.window_size.y - 80., self.window_size.y - 80., &Color::new_RGBA(255, 255, 255, 50), render_window);
         self.draw_line(self.window_size.x, 0., self.window_size.y - 79., self.window_size.y - 79., &Color::new_RGBA(255, 255, 255, 75), render_window);
+        render_window.draw(&self.face);
     }
 }

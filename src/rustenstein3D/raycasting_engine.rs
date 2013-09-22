@@ -281,7 +281,7 @@ impl REngine {
         let move : f32 = match event_handler.has_mouse_moved_event() {
             Some((x, _))    => x as f32 - (self.window_size.x  / 2.) as f32,
             None            => 0.
-        } / -100.;
+        } / -250.;
 
         let old_dir_x = self.vector_direction.x;
         self.vector_direction.x = self.vector_direction.x * (move).cos() - self.vector_direction.y * (move).sin();

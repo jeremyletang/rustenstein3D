@@ -22,7 +22,7 @@ impl<'self> Weapon<'self> {
 		tmp_shadow.set_texture(texture_loader.get_texture(18), false);
 		Weapon {
 			weapon : tmp_weapon,
-			animation : Animation::new(~[12, 13, 14, 15, 16, 17], Stop, PlayOnce, 0.09),
+			animation : Animation::new(~[12, 13, 14, 15, 16, 17], Stop, PlayOnce, 0.07, 3),
 			texture_loader : texture_loader,
 			gun_shadow : tmp_shadow
 		}
