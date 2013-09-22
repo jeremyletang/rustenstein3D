@@ -23,6 +23,8 @@ pub mod mini_map;
 pub mod raycasting_engine;
 pub mod texture_loader;
 pub mod hud;
+pub mod animation;
+pub mod weapon;
 pub mod game;
 
 
@@ -44,7 +46,14 @@ fn load_texture() -> texture_loader::TextureLoader {
        texture_loader.load_texture(~"./resources/8.tga") == false ||
        texture_loader.load_texture(~"./resources/9.tga") == false ||
        texture_loader.load_texture(~"./resources/10.tga") == false ||
-       texture_loader.load_texture(~"./resources/sky.tga") == false {
+       texture_loader.load_texture(~"./resources/sky.tga") == false ||
+       texture_loader.load_texture(~"./resources/gun_1.png") == false ||
+       texture_loader.load_texture(~"./resources/gun_2.png") == false ||
+       texture_loader.load_texture(~"./resources/gun_3.png") == false ||
+       texture_loader.load_texture(~"./resources/gun_4.png") == false ||
+       texture_loader.load_texture(~"./resources/gun_5.png") == false ||
+       texture_loader.load_texture(~"./resources/gun_6.png") == false ||
+       texture_loader.load_texture(~"./resources/gun_shadow.png") == false {
         fail!("Error : Cannot load texture.");
     }
     texture_loader

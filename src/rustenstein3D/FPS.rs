@@ -6,8 +6,7 @@
 */
 
 use rsfml::graphics::{RenderWindow, Font, Text, Color};
-use rsfml::system::Clock;
-use rsfml::system::Vector2f;
+use rsfml::system::{Clock, Vector2f};
 
 /// Definition of class FPSHandler
 pub struct FPSHandler<'self> {

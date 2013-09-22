@@ -87,7 +87,6 @@ impl REngine {
         let mut weight : f32;
         let mut current_floor = Vector2f { x : 0., y : 0. };
         let mut tex_coord = Vector2f { x : 0., y : 0. };
-        // let color = Color::white();
         let mut pos = Vector2f {x : 0., y : 0. };
         pos.x = x as f32;
         if side == 0 && ray_dir.x > 0. {

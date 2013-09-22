@@ -21,7 +21,7 @@ impl<'self> HUD<'self> {
     }
 
     pub fn update(&mut self) -> () {
-        self.background.set_size2f(self.window_size.x - 20., 60.);
+        self.background.set_size2f(self.window_size.x - 21., 59.);
         self.background.set_fill_color(~Color::new_RGB(6, 1, 162));
         self.background.set_position2f(10., self.window_size.y - 70.);
     }
@@ -42,6 +42,7 @@ impl<'self> HUD<'self> {
     }
 
     pub fn draw(&mut self, render_window : &mut RenderWindow) -> () {
+        render_window.draw(&self.background);
         self.draw_2line(self.window_size.x - 9., self.window_size.x - 9., 9., self.window_size.y - 70., self.window_size.y - 10., self.window_size.y - 10., &Color::new_RGBA(255, 255, 255, 75), render_window);
         self.draw_2line(self.window_size.x - 11., self.window_size.x - 11., 11., self.window_size.y - 70., self.window_size.y - 12., self.window_size.y - 12., &Color::black(), render_window);
         self.draw_2line(9., 9., self.window_size.x - 9., self.window_size.y - 12., self.window_size.y - 71., self.window_size.y - 71., &Color::black(), render_window);

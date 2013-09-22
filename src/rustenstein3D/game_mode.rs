@@ -9,6 +9,7 @@ use event_handler::*;
 use raycasting_engine::REngine;
 use texture_loader::TextureLoader;
 use hud::HUD;
+use weapon::Weapon;
 
 pub struct GameMode<'self> {
     priv window_size : Vector2u,
@@ -17,7 +18,8 @@ pub struct GameMode<'self> {
     priv player_position : Vector2f,
     priv r_engine : REngine,
     priv texture_loader : &'self TextureLoader,
-    priv hud : HUD<'self>
+    priv hud : HUD<'self>,
+    priv weapon : Weapon<'self>
 }
 
 impl<'self> GameMode<'self> {
@@ -30,7 +32,8 @@ impl<'self> GameMode<'self> {
             player_position : Vector2f { x : 4., y : 1. },
             r_engine : REngine::new(map, &window_size.to_vector2f()),
             texture_loader : texture_loader,
-            hud : HUD::new(&window_size.to_vector2f())
+            hud : HUD::new(&window_size.to_vector2f()),
+            weapon : Weapon::new(&window_size.to_vector2f(), texture_loader)
         }
     }
 
@@ -79,6 +82,7 @@ impl<'self> GameMode<'self> {
             self.mini_map.update(self.r_engine.get_player_pos(), rotation);
         }
         self.hud.update();
+        self.weapon.update(event_handler);
     }
 
     pub fn draw<'r>(&mut self, render_window : &'r mut RenderWindow) -> () {
@@ -87,5 +91,6 @@ impl<'self> GameMode<'self> {
             self.mini_map.draw(render_window, self.texture_loader);
         }
         self.hud.draw(render_window);
+        self.weapon.draw(render_window);
     }
 }
