@@ -23,7 +23,7 @@ impl<'self> GameLoop<'self> {
             render_window : render_window,
             fps_handler : None,
             event_handler : @mut EventHandler::new(render_window),
-            clear_color : Color::black(),
+            clear_color : Color::new_RGB(3, 64, 59),
             game_mode : GameMode::new(render_window.get_size(), texture_loader),
             texture_loader : texture_loader
         }

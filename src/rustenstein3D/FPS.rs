@@ -33,7 +33,7 @@ impl<'self> FPSHandler<'self> {
         let mut t = Text::new().unwrap();
         t.set_font(font);
         t.set_character_size(20);
-        t.set_position(~(Vector2f::new(10., render_window.get_size().y as f32 - 30.)));
+        t.set_position(~(Vector2f::new(10., 10.)));
         t.set_color(~Color::white());
         t.set_string(~"0");
         FPSHandler {

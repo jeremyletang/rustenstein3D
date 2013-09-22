@@ -29,7 +29,7 @@ impl REngine {
             vector_direction : Vector2f { x : -1., y : 0. },
             cam_plane : Vector2f { x : 0., y : 0.66 },
             map : map,
-            window_size : Vector2f { x : window_size.x, y : window_size.y },
+            window_size : Vector2f { x : window_size.x, y : window_size.y - 80. },
             vertex_array : REngine::create_line_array(window_size),
             textures_id : ~[],
             ground : REngine::create_ground_array(window_size),

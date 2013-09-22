@@ -22,6 +22,7 @@ pub mod map;
 pub mod mini_map;
 pub mod raycasting_engine;
 pub mod texture_loader;
+pub mod hud;
 pub mod game;
 
 
@@ -73,7 +74,7 @@ fn main() -> () {
     let render_window = @mut RenderWindow::new(video_mode, ~"Rustenstein3D", sfClose, &settings).expect("Error : Cannot create a render_window!");
     
     // set the framerate limit to 30 fps.
-    render_window.set_framerate_limit(40);
+    render_window.set_framerate_limit(45);
 
     // Create the font for the FPS_handler.
     let font = @Font::new_from_file(~"./resources/sansation.ttf").expect("Error : Cannot load font, font resources/sansation.ttf doesn.t exist!");
