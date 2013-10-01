@@ -1,5 +1,5 @@
 
-use rsfml::graphics::RenderWindow;
+use rsfml::graphics::{RenderWindow, RectangleShape, Color};
 use rsfml::system::{Vector2u, Vector2f, Vector2i, ToVec};
 use rsfml::window::keyboard;
 
@@ -19,21 +19,32 @@ pub struct GameMode<'self> {
     priv r_engine : REngine,
     priv texture_loader : &'self TextureLoader,
     priv hud : HUD<'self>,
-    priv weapon : Weapon<'self>
+    priv weapon : Weapon<'self>,
+    priv sky : RectangleShape<'self>,
+    priv ground : RectangleShape<'self>
 }
 
 impl<'self> GameMode<'self> {
-    pub fn new(window_size : Vector2u, texture_loader : &'self TextureLoader) -> GameMode<'self> {
+    pub fn new(window_size : Vector2u, 
+               texture_loader : &'self TextureLoader, 
+               noground : bool) -> GameMode<'self> {
         let map = GameMode::get_map();
+        let mut sky = RectangleShape::new_init(&Vector2f { x : window_size.x as f32, y : window_size.y as f32 / 2. - 40.}).unwrap();
+        sky.set_fill_color(~Color::new_RGB(63, 48, 21));
+        let mut ground = RectangleShape::new_init(&Vector2f { x : window_size.x as f32, y : window_size.y as f32 / 2. - 40. }).unwrap();
+        ground.set_fill_color(~Color::new_RGB(109, 108, 112));
+        ground.set_position2f(0., window_size.y as f32 / 2. - 40.);
         GameMode {
             window_size : window_size,
             map : map.clone(),
             mini_map : MiniMap::new(map.clone(), &window_size),
             player_position : Vector2f { x : 4., y : 1. },
-            r_engine : REngine::new(map, &window_size.to_vector2f()),
+            r_engine : REngine::new(map, &window_size.to_vector2f(), noground),
             texture_loader : texture_loader,
             hud : HUD::new(&window_size.to_vector2f(), texture_loader),
-            weapon : Weapon::new(&window_size.to_vector2f(), texture_loader)
+            weapon : Weapon::new(&window_size.to_vector2f(), texture_loader),
+            sky : sky,
+            ground : ground
         }
     }
 
@@ -86,6 +97,8 @@ impl<'self> GameMode<'self> {
     }
 
     pub fn draw<'r>(&mut self, render_window : &'r mut RenderWindow) -> () {
+        render_window.draw(&self.sky);
+        render_window.draw(&self.ground);
         self.r_engine.draw(render_window, self.texture_loader);
         if self.mini_map.is_active() {
             self.mini_map.draw(render_window, self.texture_loader);

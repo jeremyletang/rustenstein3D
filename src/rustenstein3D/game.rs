@@ -18,13 +18,14 @@ pub struct GameLoop<'self> {
 
 impl<'self> GameLoop<'self> {
     pub fn new(render_window : @mut RenderWindow,
-               texture_loader : &'self TextureLoader) -> GameLoop<'self> {
+               texture_loader : &'self TextureLoader,
+               noground : bool) -> GameLoop<'self> {
         GameLoop {
             render_window : render_window,
             fps_handler : None,
             event_handler : @mut EventHandler::new(render_window),
             clear_color : Color::new_RGB(3, 64, 59),
-            game_mode : GameMode::new(render_window.get_size(), texture_loader),
+            game_mode : GameMode::new(render_window.get_size(), texture_loader, noground),
             texture_loader : texture_loader
         }
     }

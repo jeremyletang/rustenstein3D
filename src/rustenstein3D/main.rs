@@ -34,6 +34,13 @@ fn start(argc: int, argv: **u8) -> int {
     std::rt::start_on_main_thread(argc, argv, main)
 }
 
+fn display_help() -> () {
+    println("Arguments availables for rustenstein3D :");
+    println("\t-w [window_width] [window_height] : specify a new size for the window.");
+    println("\t--noground : diseable the ground texturing (improve performance).");
+    println("\t--help : display this help.");
+}
+
 fn load_texture() -> texture_loader::TextureLoader {
     let mut texture_loader = texture_loader::TextureLoader::new();
     if texture_loader.load_texture(~"./resources/ground.tga") == false ||
@@ -66,19 +73,38 @@ fn load_texture() -> texture_loader::TextureLoader {
 fn main() -> () {
     // Check if a custom width is set.
     let args = os::args();
-    let mut width : uint;
-    let mut height : uint;
-    match args.len() {
-        3 => {
-            width = from_str::<uint>(args[1]).expect("Error the first argument is not a width!");
-            height = from_str::<uint>(args[2]).expect("Error the second argument is not a width!");
-        },
-        1 => {
-            width = 768;
-            height = 480;
-        },
-        _ => fail!("Error incompatible number of arguments!")
-    };
+    let mut width : uint = 768;
+    let mut height : uint = 480;
+    let mut noground : bool = false;
+    let mut i_args = 1;
+
+    while i_args < args.len() {
+        match args[i_args] {
+            ~"--help"       => { display_help(); return; },
+            ~"--noground"   => noground = true,
+            ~"-w"           => { 
+                if i_args + 2 >= args.len() { fail!("Error missing arguments for -w option."); }
+                width = from_str::<uint>(args[i_args + 1]).expect("Error the first parameter after -w argument is not a width!");
+                height = from_str::<uint>(args[i_args + 2]).expect("Error the second parameter after -w argument is not a width!");
+                i_args += 2;
+            },
+            _              => fail!("Error unknown argument."),
+        }
+        i_args += 1;
+    }
+
+
+    // match args.len() {
+    //     3 => {
+    //         width = from_str::<uint>(args[1]).expect("Error the first argument is not a width!");
+    //         height = from_str::<uint>(args[2]).expect("Error the second argument is not a width!");
+    //     },
+    //     1 => {
+    //         width = 768;
+    //         height = 480;
+    //     },
+    //     _ => fail!("Error incompatible number of arguments!")
+    // };
 
     // Create the render_window.
     let settings = ContextSettings::default();
@@ -102,7 +128,7 @@ fn main() -> () {
     let texture_loader = load_texture();
 
     // Create the game_loop and activate the fps handler.
-    let mut game_loop = game::GameLoop::new(render_window, &texture_loader);
+    let mut game_loop = game::GameLoop::new(render_window, &texture_loader, noground);
     game_loop.activate_FPS(font);
 
     game_loop.run();

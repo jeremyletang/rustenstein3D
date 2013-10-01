@@ -17,12 +17,14 @@ pub struct REngine {
     priv vertex_array : ~[~VertexArray],
     priv textures_id : ~[i32],
     priv ground : ~[~VertexArray],
-    priv sky : ~[~VertexArray]
+    priv sky : ~[~VertexArray],
+    priv noground : bool
 }
 
 impl REngine {
     pub fn new(map : map::Map, 
-               window_size : &Vector2f) -> REngine {
+               window_size : &Vector2f,
+               noground : bool) -> REngine {
         
         REngine {
             player_position : Vector2f { x : 22., y : 12. },
@@ -33,7 +35,8 @@ impl REngine {
             vertex_array : REngine::create_line_array(window_size),
             textures_id : ~[],
             ground : REngine::create_ground_array(window_size),
-            sky : REngine::create_ground_array(window_size) 
+            sky : REngine::create_ground_array(window_size),
+            noground : noground
         }
     }
 
@@ -73,7 +76,9 @@ impl REngine {
 
             self.calculate_wall_texture(side, &ray_dir, x, &map_pos, &step, &ray_pos, draw_end, draw_start, &mut wall_x);
             
-            self.calculate_ground(side, &map_pos, wall_x, &ray_dir, perp_wall_dist, &mut draw_end, x);
+            if !self.noground {
+                self.calculate_ground(side, &map_pos, wall_x, &ray_dir, perp_wall_dist, &mut draw_end, x);
+            }
 
             x += 1;
         }
