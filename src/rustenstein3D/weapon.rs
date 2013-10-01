@@ -12,7 +12,8 @@ pub struct Weapon<'self> {
 	priv texture_loader : &'self TextureLoader,
 	priv shadows : RectangleShape<'self>,
 	priv shadows_id : ~[i32],
-	priv current_weapon : i32
+	priv current_weapon : i32,
+	priv mouse_fire : bool
 }
 
 impl<'self> Weapon<'self> {
@@ -23,7 +24,8 @@ impl<'self> Weapon<'self> {
 			texture_loader : texture_loader,
 			shadows : Weapon::initialize_shadows(window_size),
 			shadows_id : ~[18, 25, 32, 39],
-			current_weapon : 0
+			current_weapon : 0,
+			mouse_fire : false
 		}
 	}
 
@@ -41,10 +43,10 @@ impl<'self> Weapon<'self> {
 
 	fn initialize_animation() -> ~[Animation] {
 		let mut animations = ~[];
-		animations.push(Animation::new(~[12, 13, 14, 15, 16, 17], Stop, PlayOnce, 0.05, 3));
-		animations.push(Animation::new(~[19, 20, 21, 22, 23, 24], Stop, PlayOnce, 0.05, 3));
-		animations.push(Animation::new(~[26, 27, 28, 29, 30, 31], Stop, PlayOnce, 0.05, 3));
-		animations.push(Animation::new(~[33, 34, 35, 36, 37, 38], Stop, PlayOnce, 0.05, 3));
+		animations.push(Animation::new(~[12, 13, 14, 15, 16, 17], Stop, PlayOnce, 0.07, 3));
+		animations.push(Animation::new(~[19, 20, 21, 22, 23, 24], Stop, PlayOnce, 0.07, 3));
+		animations.push(Animation::new(~[26, 27, 28, 29, 30, 31], Stop, PlayOnce, 0.07, 3));
+		animations.push(Animation::new(~[33, 34, 35, 36, 37, 38], Stop, PlayOnce, 0.07, 3));
 		
 		animations
 	}
@@ -67,14 +69,21 @@ impl<'self> Weapon<'self> {
 			None	=> {}
 		};
 
-		match event_handler.has_mouse_button_pressed_event(mouse::MouseLeft) {
-			Some(_) => self.animations[self.current_weapon].set_state(Play),
-			None	=> {}
-		};
-		match event_handler.has_key_pressed_event(keyboard::E) {
-		Some(_) => self.animations[self.current_weapon].set_state(Play),
-		None	=> {}
-		};
+		if self.mouse_fire == false {
+			match event_handler.has_mouse_button_pressed_event(mouse::MouseLeft) {
+				Some(_) => { self.animations[self.current_weapon].set_state(Play) ; self.mouse_fire = true },
+				None	=> {}
+			};
+		} else {
+			match event_handler.has_mouse_button_released_event(mouse::MouseLeft) {
+				Some(_) => { self.mouse_fire = false },
+				None	=> self.animations[self.current_weapon].set_state(Play)
+			};
+		}
+
+		if event_handler.is_key_pressed(keyboard::E) {
+			self.animations[self.current_weapon].set_state(Play);
+		}
 		self.animations[self.current_weapon].update();
 	}
 

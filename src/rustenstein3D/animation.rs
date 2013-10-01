@@ -26,7 +26,7 @@ pub struct Animation {
 impl Animation {
     pub fn new(texture_ids : ~[i32], state : AnimationState, mode : AnimationMode, lag : f32, offset : u32) -> Animation {
         Animation {
-            a : 0,
+            a : 1,
             b : texture_ids.len() as u32 - 1u32,
             offset : offset,
             texture_ids : texture_ids,
@@ -42,7 +42,7 @@ impl Animation {
         self.state = new_state;
         match new_state {
             Stop    => { self.current_texture = 0; self.clock.restart(); },
-            Play    => { if self.offset <= self.current_texture { self.current_texture = 0; self.clock.restart();} },
+            Play    => { if self.offset <= self.current_texture { self.current_texture = self.a; self.clock.restart();} },
             _       => {}
         }
     }

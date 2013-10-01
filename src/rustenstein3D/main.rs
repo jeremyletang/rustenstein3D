@@ -76,9 +76,9 @@ fn load_texture() -> texture_loader::TextureLoader {
        texture_loader.load_texture(~"./resources/weapons/gun3_5.png") == false || // 30
        texture_loader.load_texture(~"./resources/weapons/gun3_6.png") == false || // 31
        texture_loader.load_texture(~"./resources/weapons/gun3_shadow.png") == false || // 32
-       texture_loader.load_texture(~"./resources/weapons/cut_1.png") == false || // 34
-       texture_loader.load_texture(~"./resources/weapons/cut_2.png") == false || //
-       texture_loader.load_texture(~"./resources/weapons/cut_3.png") == false || 
+       texture_loader.load_texture(~"./resources/weapons/cut_1.png") == false || // 33
+       texture_loader.load_texture(~"./resources/weapons/cut_2.png") == false || // 34
+       texture_loader.load_texture(~"./resources/weapons/cut_3.png") == false || // 35
        texture_loader.load_texture(~"./resources/weapons/cut_4.png") == false || // 36
        texture_loader.load_texture(~"./resources/weapons/cut_5.png") == false || // 37
        texture_loader.load_texture(~"./resources/weapons/cut_6.png") == false || //38
