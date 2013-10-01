@@ -261,24 +261,24 @@ impl REngine {
         if event_handler.is_key_pressed(keyboard::W) {
             pos.x = (self.player_position.x + (self.vector_direction.x * 0.1)) as i32;
             pos.y = self.player_position.y as i32;
-            if self.map.get_block(&pos).expect("Error on getting block (raycasting_engine.rs line 124)") == 0 {
+            if self.map.get_block(&pos).expect("Error on getting block (raycasting_engine.rs line 265)") == 0 {
                 self.player_position.x += self.vector_direction.x * 0.1;
             }
             pos.y = (self.player_position.y + (self.vector_direction.y * 0.1)) as i32;
             pos.x = self.player_position.x as i32;
-            if self.map.get_block(&pos).expect("Error on getting block (raycasting_engine.rs line 129)") == 0 {
+            if self.map.get_block(&pos).expect("Error on getting block (raycasting_engine.rs line 268)") == 0 {
                 self.player_position.y += self.vector_direction.y * 0.1;
             }
         }
         if event_handler.is_key_pressed(keyboard::S) {
             pos.x = (self.player_position.x  - (self.vector_direction.x * 0.1)) as i32;
             pos.y = self.player_position.y as i32;
-            if self.map.get_block(&pos).expect("Error on getting block (raycasting_engine.rs line 124)") == 0 {
+            if self.map.get_block(&pos).expect("Error on getting block (raycasting_engine.rs line 276)") == 0 {
                 self.player_position.x -= self.vector_direction.x * 0.1;
             }
             pos.y = (self.player_position.y - (self.vector_direction.y * 0.1)) as i32;
             pos.x = self.player_position.x as i32;
-            if self.map.get_block(&pos).expect("Error on getting block (raycasting_engine.rs line 129)") == 0 {
+            if self.map.get_block(&pos).expect("Error on getting block (raycasting_engine.rs line 281)") == 0 {
                 self.player_position.y -= self.vector_direction.y * 0.1;
             }
         }

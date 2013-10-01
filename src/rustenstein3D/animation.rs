@@ -27,7 +27,7 @@ impl Animation {
     pub fn new(texture_ids : ~[i32], state : AnimationState, mode : AnimationMode, lag : f32, offset : u32) -> Animation {
         Animation {
             a : 0,
-            b : texture_ids.len() as u32,
+            b : texture_ids.len() as u32 - 1u32,
             offset : offset,
             texture_ids : texture_ids,
             state : state,

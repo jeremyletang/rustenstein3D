@@ -25,7 +25,7 @@ impl<'self> HUD<'self> {
             background : RectangleShape::new().unwrap(),
             hud_vertex_array : array,
             face : tmp_face,
-            face_animation : Animation::new(~[19, 20, 21], Play, PlayOnce, 1., 0),
+            face_animation : Animation::new(~[40, 41, 42], Play, PlayOnce, 1., 0),
             texture_loader : texture_loader,
             face_clock : Clock::new()
         }

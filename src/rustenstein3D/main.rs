@@ -43,28 +43,49 @@ fn display_help() -> () {
 
 fn load_texture() -> texture_loader::TextureLoader {
     let mut texture_loader = texture_loader::TextureLoader::new();
-    if texture_loader.load_texture(~"./resources/ground.tga") == false ||
-       texture_loader.load_texture(~"./resources/1.tga") == false ||
-       texture_loader.load_texture(~"./resources/2.tga") == false ||
-       texture_loader.load_texture(~"./resources/3.tga") == false ||
-       texture_loader.load_texture(~"./resources/4.tga") == false ||
-       texture_loader.load_texture(~"./resources/5.tga") == false ||
-       texture_loader.load_texture(~"./resources/6.tga") == false ||
-       texture_loader.load_texture(~"./resources/7.tga") == false ||
-       texture_loader.load_texture(~"./resources/8.tga") == false ||
-       texture_loader.load_texture(~"./resources/9.tga") == false ||
-       texture_loader.load_texture(~"./resources/10.tga") == false ||
-       texture_loader.load_texture(~"./resources/sky.tga") == false ||
-       texture_loader.load_texture(~"./resources/gun_1.png") == false ||
-       texture_loader.load_texture(~"./resources/gun_2.png") == false ||
-       texture_loader.load_texture(~"./resources/gun_3.png") == false ||
-       texture_loader.load_texture(~"./resources/gun_4.png") == false ||
-       texture_loader.load_texture(~"./resources/gun_5.png") == false ||
-       texture_loader.load_texture(~"./resources/gun_6.png") == false ||
-       texture_loader.load_texture(~"./resources/gun_shadow.png") == false ||
-       texture_loader.load_texture(~"./resources/face1.png") == false ||
-       texture_loader.load_texture(~"./resources/face2.png") == false ||
-       texture_loader.load_texture(~"./resources/face3.png") == false {
+    if texture_loader.load_texture(~"./resources/ground.tga") == false || // 0
+       texture_loader.load_texture(~"./resources/1.tga") == false || // 1
+       texture_loader.load_texture(~"./resources/2.tga") == false || // 2
+       texture_loader.load_texture(~"./resources/3.tga") == false || // 3
+       texture_loader.load_texture(~"./resources/4.tga") == false || // 4
+       texture_loader.load_texture(~"./resources/5.tga") == false || // 5
+       texture_loader.load_texture(~"./resources/6.tga") == false || // 6
+       texture_loader.load_texture(~"./resources/7.tga") == false || // 7
+       texture_loader.load_texture(~"./resources/8.tga") == false || // 8
+       texture_loader.load_texture(~"./resources/9.tga") == false || // 9
+       texture_loader.load_texture(~"./resources/10.tga") == false || // 10
+       texture_loader.load_texture(~"./resources/sky.tga") == false || // 11
+       texture_loader.load_texture(~"./resources/weapons/gun_1.png") == false || // 12
+       texture_loader.load_texture(~"./resources/weapons/gun_2.png") == false || // 13
+       texture_loader.load_texture(~"./resources/weapons/gun_3.png") == false || // 14
+       texture_loader.load_texture(~"./resources/weapons/gun_4.png") == false || // 15
+       texture_loader.load_texture(~"./resources/weapons/gun_5.png") == false || // 16
+       texture_loader.load_texture(~"./resources/weapons/gun_6.png") == false || // 17
+       texture_loader.load_texture(~"./resources/weapons/gun_shadow.png") == false || // 18
+       texture_loader.load_texture(~"./resources/weapons/gun2_1.png") == false || // 19
+       texture_loader.load_texture(~"./resources/weapons/gun2_2.png") == false || // 20
+       texture_loader.load_texture(~"./resources/weapons/gun2_3.png") == false || // 21
+       texture_loader.load_texture(~"./resources/weapons/gun2_4.png") == false || // 22
+       texture_loader.load_texture(~"./resources/weapons/gun2_5.png") == false || // 23
+       texture_loader.load_texture(~"./resources/weapons/gun2_6.png") == false || // 24
+       texture_loader.load_texture(~"./resources/weapons/gun2_shadow.png") == false || // 25
+       texture_loader.load_texture(~"./resources/weapons/gun3_1.png") == false || // 26
+       texture_loader.load_texture(~"./resources/weapons/gun3_2.png") == false || // 27
+       texture_loader.load_texture(~"./resources/weapons/gun3_3.png") == false || // 28
+       texture_loader.load_texture(~"./resources/weapons/gun3_4.png") == false || // 29
+       texture_loader.load_texture(~"./resources/weapons/gun3_5.png") == false || // 30
+       texture_loader.load_texture(~"./resources/weapons/gun3_6.png") == false || // 31
+       texture_loader.load_texture(~"./resources/weapons/gun3_shadow.png") == false || // 32
+       texture_loader.load_texture(~"./resources/weapons/cut_1.png") == false || // 34
+       texture_loader.load_texture(~"./resources/weapons/cut_2.png") == false || //
+       texture_loader.load_texture(~"./resources/weapons/cut_3.png") == false || 
+       texture_loader.load_texture(~"./resources/weapons/cut_4.png") == false || // 36
+       texture_loader.load_texture(~"./resources/weapons/cut_5.png") == false || // 37
+       texture_loader.load_texture(~"./resources/weapons/cut_6.png") == false || //38
+       texture_loader.load_texture(~"./resources/weapons/cut_shadow.png") == false || // 39
+       texture_loader.load_texture(~"./resources/face1.png") == false || //40
+       texture_loader.load_texture(~"./resources/face2.png") == false || //41
+       texture_loader.load_texture(~"./resources/face3.png") == false { //42
         fail!("Error : Cannot load texture.");
     }
     texture_loader
@@ -92,19 +113,6 @@ fn main() -> () {
         }
         i_args += 1;
     }
-
-
-    // match args.len() {
-    //     3 => {
-    //         width = from_str::<uint>(args[1]).expect("Error the first argument is not a width!");
-    //         height = from_str::<uint>(args[2]).expect("Error the second argument is not a width!");
-    //     },
-    //     1 => {
-    //         width = 768;
-    //         height = 480;
-    //     },
-    //     _ => fail!("Error incompatible number of arguments!")
-    // };
 
     // Create the render_window.
     let settings = ContextSettings::default();
