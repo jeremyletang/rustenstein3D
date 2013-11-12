@@ -7,6 +7,9 @@
 #[license = "MIT"];
 #[crate_type = "bin"];
 
+#[feature(globs)];
+#[feature(managed_boxes)];
+
 extern mod rsfml;
 
 use rsfml::graphics::{RenderWindow, Font, sfClose};

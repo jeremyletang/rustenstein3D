@@ -45,7 +45,7 @@ impl MiniMap {
                   player_position : Vector2f, 
                   new_rotation : f32) -> () {    
         self.player_pos = player_position;
-        self.mini_map_view.rotate(new_rotation as float);
+        self.mini_map_view.rotate(new_rotation);
         self.mini_map_view.set_center2f(self.player_pos.x * 80., self.player_pos.y * 80.);         
         self.rotation += new_rotation;
     }
