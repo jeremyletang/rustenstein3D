@@ -11,28 +11,28 @@ use texture_loader::TextureLoader;
 use hud::HUD;
 use weapon::Weapon;
 
-pub struct GameMode<'self> {
+pub struct GameMode<'s> {
     priv window_size : Vector2u,
     priv map : map::Map,
     priv mini_map : MiniMap,
     priv player_position : Vector2f,
     priv r_engine : REngine,
-    priv texture_loader : &'self TextureLoader,
-    priv hud : HUD<'self>,
-    priv weapon : Weapon<'self>,
-    priv sky : RectangleShape<'self>,
-    priv ground : RectangleShape<'self>
+    priv texture_loader : &'s TextureLoader,
+    priv hud : HUD<'s>,
+    priv weapon : Weapon<'s>,
+    priv sky : RectangleShape<'s>,
+    priv ground : RectangleShape<'s>
 }
 
-impl<'self> GameMode<'self> {
+impl<'s> GameMode<'s> {
     pub fn new(window_size : Vector2u, 
-               texture_loader : &'self TextureLoader, 
-               noground : bool) -> GameMode<'self> {
+               texture_loader : &'s TextureLoader, 
+               noground : bool) -> GameMode<'s> {
         let map = GameMode::get_map();
         let mut sky = RectangleShape::new_init(&Vector2f { x : window_size.x as f32, y : window_size.y as f32 / 2. - 40.}).unwrap();
-        sky.set_fill_color(~Color::new_RGB(63, 48, 21));
+        sky.set_fill_color(&Color::new_RGB(63, 48, 21));
         let mut ground = RectangleShape::new_init(&Vector2f { x : window_size.x as f32, y : window_size.y as f32 / 2. - 40. }).unwrap();
-        ground.set_fill_color(~Color::new_RGB(109, 108, 112));
+        ground.set_fill_color(&Color::new_RGB(109, 108, 112));
         ground.set_position2f(0., window_size.y as f32 / 2. - 40.);
         GameMode {
             window_size : window_size,

@@ -6,18 +6,18 @@ use animation::*;
 use event_handler::EventHandler;
 use texture_loader::TextureLoader;
 
-pub struct Weapon<'self> {
-	priv weapons : RectangleShape<'self>,
+pub struct Weapon<'s> {
+	priv weapons : RectangleShape<'s>,
 	priv animations : ~[Animation],
-	priv texture_loader : &'self TextureLoader,
-	priv shadows : RectangleShape<'self>,
+	priv texture_loader : &'s TextureLoader,
+	priv shadows : RectangleShape<'s>,
 	priv shadows_id : ~[i32],
 	priv current_weapon : i32,
 	priv mouse_fire : bool
 }
 
-impl<'self> Weapon<'self> {
-	pub fn new(window_size : &Vector2f, texture_loader : &'self TextureLoader) -> Weapon<'self> {
+impl<'s> Weapon<'s> {
+	pub fn new(window_size : &Vector2f, texture_loader : &'s TextureLoader) -> Weapon<'s> {
 		Weapon {
 			weapons : Weapon::initialize_weapons(window_size),
 			animations : Weapon::initialize_animation(),
@@ -29,13 +29,13 @@ impl<'self> Weapon<'self> {
 		}
 	}
 
-	fn initialize_weapons(window_size : &Vector2f) -> RectangleShape<'self> {
+	fn initialize_weapons(window_size : &Vector2f) -> RectangleShape<'s> {
 		let mut tmp_weapon = RectangleShape::new_init(&Vector2f {x : 400., y : 400.}).unwrap();
 		tmp_weapon.set_position2f(window_size.x / 2. - 200., window_size.y - 400. - 81.);
 		tmp_weapon
 	}
 
-	fn initialize_shadows(window_size : &Vector2f) -> RectangleShape<'self> {
+	fn initialize_shadows(window_size : &Vector2f) -> RectangleShape<'s> {
 		let mut tmp_shadow = RectangleShape::new_init(&Vector2f {x : 99., y : 48.}).unwrap();
 		tmp_shadow.set_position2f(window_size.x - 115., window_size.y - 66.);
 		tmp_shadow

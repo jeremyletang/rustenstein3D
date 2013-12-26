@@ -9,15 +9,15 @@ use rsfml::graphics::{RenderWindow, Font, Text, Color};
 use rsfml::system::{Clock, Vector2f};
 
 /// Definition of class FPSHandler
-pub struct FPSHandler<'self> {
+pub struct FPSHandler<'s> {
     priv render_window : @mut RenderWindow,
     priv fps_clock : Clock,
-    priv text : Text<'self>,
+    priv text : Text<'s>,
     priv images : uint
 }
 
 /// Implementation of class FPSHandler
-impl<'self> FPSHandler<'self> {
+impl<'s> FPSHandler<'s> {
     /**
     * Constructor of class FPSHandler
     *
@@ -28,13 +28,13 @@ impl<'self> FPSHandler<'self> {
     * Return a new instance of FPSHandler
     */
     pub fn new(render_window : @mut RenderWindow, 
-               font : &'self Font) -> FPSHandler<'self> {
+               font : &'s Font) -> FPSHandler<'s> {
         let mut t = Text::new().unwrap();
         t.set_font(font);
         t.set_character_size(20);
-        t.set_position(~(Vector2f::new(10., 10.)));
-        t.set_color(~Color::white());
-        t.set_string(~"0");
+        t.set_position(&(Vector2f::new(10., 10.)));
+        t.set_color(&Color::white());
+        t.set_string("0");
         FPSHandler {
             render_window : render_window,
             fps_clock : Clock::new(),

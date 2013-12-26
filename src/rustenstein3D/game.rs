@@ -7,19 +7,19 @@ use texture_loader::TextureLoader;
 use rsfml::graphics::{RenderWindow, Font, Color};
 use rsfml::window::keyboard;
 
-pub struct GameLoop<'self> {
+pub struct GameLoop<'s> {
     priv render_window : @mut RenderWindow,
-    priv fps_handler : Option<FPSHandler<'self>>,
+    priv fps_handler : Option<FPSHandler<'s>>,
     priv event_handler : @mut EventHandler,
     priv clear_color : Color,
-    priv game_mode : GameMode<'self>,
-    priv texture_loader : &'self TextureLoader
+    priv game_mode : GameMode<'s>,
+    priv texture_loader : &'s TextureLoader
 }
 
-impl<'self> GameLoop<'self> {
+impl<'s> GameLoop<'s> {
     pub fn new(render_window : @mut RenderWindow,
-               texture_loader : &'self TextureLoader,
-               noground : bool) -> GameLoop<'self> {
+               texture_loader : &'s TextureLoader,
+               noground : bool) -> GameLoop<'s> {
         GameLoop {
             render_window : render_window,
             fps_handler : None,
@@ -31,7 +31,7 @@ impl<'self> GameLoop<'self> {
     }
 
     pub fn activate_FPS(&mut self, 
-                        font : &'self Font) -> (){
+                        font : &'s Font) -> (){
         match self.fps_handler {
             Some(_)     => (),
             None        => self.fps_handler = Some(FPSHandler::new(self.render_window, font))

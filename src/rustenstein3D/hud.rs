@@ -4,18 +4,18 @@ use rsfml::system::{Vector2f, Clock};
 use texture_loader::TextureLoader;
 use animation::*;
 
-pub struct HUD<'self> {
+pub struct HUD<'s> {
     priv window_size : Vector2f,
-    priv background : RectangleShape<'self>,
+    priv background : RectangleShape<'s>,
     priv hud_vertex_array : VertexArray,
-    priv face : RectangleShape<'self>,
+    priv face : RectangleShape<'s>,
     priv face_animation : Animation,
-    priv texture_loader : &'self TextureLoader,
+    priv texture_loader : &'s TextureLoader,
     priv face_clock : Clock
 }
 
-impl<'self> HUD<'self> {
-    pub fn new(window_size : &Vector2f, texture_loader : &'self TextureLoader) -> HUD<'self> {
+impl<'s> HUD<'s> {
+    pub fn new(window_size : &Vector2f, texture_loader : &'s TextureLoader) -> HUD<'s> {
         let mut array = VertexArray::new().unwrap();
         array.set_primitive_type(LinesStrip);
         let mut tmp_face = RectangleShape::new_init(&Vector2f {x : 43., y : 58.}).unwrap();
@@ -33,7 +33,7 @@ impl<'self> HUD<'self> {
 
     pub fn update(&mut self) -> () {
         self.background.set_size2f(self.window_size.x - 21., 59.);
-        self.background.set_fill_color(~Color::new_RGB(6, 1, 162));
+        self.background.set_fill_color(&Color::new_RGB(6, 1, 162));
         self.background.set_position2f(10., self.window_size.y - 70.);
         self.face_animation.update();
         self.face.set_texture(self.texture_loader.get_texture(self.face_animation.get_current_texture_id()), false);
@@ -45,16 +45,16 @@ impl<'self> HUD<'self> {
 
     fn draw_line(&mut self, x1 : f32, x2 : f32, y1 : f32, y2 : f32, color : &Color, render_window : &mut RenderWindow) -> () {
         self.hud_vertex_array.clear();
-        self.hud_vertex_array.append(&Vertex::new_with_pos_color(~Vector2f {x : x1, y : y1}, color));
-        self.hud_vertex_array.append(&Vertex::new_with_pos_color(~Vector2f {x : x2, y : y2}, color));
+        self.hud_vertex_array.append(&Vertex::new_with_pos_color(&Vector2f {x : x1, y : y1}, color));
+        self.hud_vertex_array.append(&Vertex::new_with_pos_color(&Vector2f {x : x2, y : y2}, color));
         render_window.draw(&self.hud_vertex_array);
     }
 
     fn draw_2line(&mut self, x1 : f32, x2 : f32, x3 : f32, y1 : f32, y2 : f32, y3 : f32, color : &Color, render_window : &mut RenderWindow) -> () {
         self.hud_vertex_array.clear();
-        self.hud_vertex_array.append(&Vertex::new_with_pos_color(~Vector2f {x : x1, y : y1}, color));
-        self.hud_vertex_array.append(&Vertex::new_with_pos_color(~Vector2f {x : x2, y : y2}, color));
-        self.hud_vertex_array.append(&Vertex::new_with_pos_color(~Vector2f {x : x3, y : y3}, color));
+        self.hud_vertex_array.append(&Vertex::new_with_pos_color(&Vector2f {x : x1, y : y1}, color));
+        self.hud_vertex_array.append(&Vertex::new_with_pos_color(&Vector2f {x : x2, y : y2}, color));
+        self.hud_vertex_array.append(&Vertex::new_with_pos_color(&Vector2f {x : x3, y : y3}, color));
         render_window.draw(&self.hud_vertex_array);
     }
 

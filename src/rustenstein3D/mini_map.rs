@@ -57,7 +57,7 @@ impl MiniMap {
         let def_view = render_window.get_default_view();
         let map_size = self.map.get_map_size();
         let mut pos : Vector2i = Vector2i::new(0, 0);
-        let mut rect = RectangleShape::new_init(~Vector2f::new(80., 80.)).unwrap();
+        let mut rect = RectangleShape::new_init(&Vector2f::new(80., 80.)).unwrap();
         rect.set_fill_color(&Color::new_RGBA(255, 255, 255, 175));
         render_window.set_view(self.mini_map_view);
         while pos.x < map_size.x {
@@ -77,7 +77,7 @@ impl MiniMap {
             pos.x += 1;
             pos.y = 0;
         }
-        rect.set_fill_color(~Color::new_RGBA(255, 0, 0, 125));
+        rect.set_fill_color(&Color::new_RGBA(255, 0, 0, 125));
         rect.set_origin2f(40., 40.);
         rect.set_position2f(self.player_pos.x as f32 * 80., self.player_pos.y as f32 * 80.);
         render_window.draw(&rect);
