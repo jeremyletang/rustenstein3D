@@ -10,7 +10,6 @@ use rsfml::system::{Clock, Vector2f};
 
 /// Definition of class FPSHandler
 pub struct FPSHandler<'s> {
-    priv render_window : @mut RenderWindow,
     priv fps_clock : Clock,
     priv text : Text<'s>,
     priv images : uint
@@ -27,8 +26,7 @@ impl<'s> FPSHandler<'s> {
     *
     * Return a new instance of FPSHandler
     */
-    pub fn new(render_window : @mut RenderWindow, 
-               font : &'s Font) -> FPSHandler<'s> {
+    pub fn new(font : &'s Font) -> FPSHandler<'s> {
         let mut t = Text::new().unwrap();
         t.set_font(font);
         t.set_character_size(20);
@@ -36,7 +34,6 @@ impl<'s> FPSHandler<'s> {
         t.set_color(&Color::white());
         t.set_string("0");
         FPSHandler {
-            render_window : render_window,
             fps_clock : Clock::new(),
             text : t,
             images : 0
@@ -61,8 +58,8 @@ impl<'s> FPSHandler<'s> {
     /**
     * Draw the current FPS on the left bottom of the window
     */
-    pub fn draw(&self) -> () {
-        self.render_window.draw(&self.text)
+    pub fn draw(&self, render_window: &mut RenderWindow) -> () {
+        render_window.draw(&self.text)
     }
 
 }

@@ -5,11 +5,13 @@
 #[feature(globs)];
 #[feature(managed_boxes)];
 
+extern mod native;
 extern mod rsfml;
 
-use rsfml::graphics::{RenderWindow, Font, sfClose};
+use rsfml::graphics::{RenderWindow, Font};
 use rsfml::window::{VideoMode, ContextSettings};
 use rsfml::system::Vector2i;
+use rsfml::window::Close;
 
 use std::os;
 use std::from_str::*;
@@ -27,16 +29,17 @@ pub mod weapon;
 pub mod game;
 
 
+#[cfg(target_os="macos")]
 #[start]
 fn start(argc: int, argv: **u8) -> int {
-    std::rt::start_on_main_thread(argc, argv, main)
+    native::start(argc, argv, main)
 }
 
 fn display_help() -> () {
-    println("Arguments availables for rustenstein3D :");
-    println("\t-w [window_width] [window_height] : specify a new size for the window.");
-    println("\t--noground : diseable the ground texturing (improve performance).");
-    println("\t--help : display this help.");
+    println!("Arguments availables for rustenstein3D :");
+    println!("\t-w [window_width] [window_height] : specify a new size for the window.");
+    println!("\t--noground : diseable the ground texturing (improve performance).");
+    println!("\t--help : display this help.");
 }
 
 fn load_texture() -> texture_loader::TextureLoader {
@@ -116,7 +119,7 @@ fn main() -> () {
     let settings = ContextSettings::default();
     let video_mode = VideoMode::new_init(width, height, 32);
     // let video_mode = VideoMode::new_init(512, 384, 32);
-    let render_window = @mut RenderWindow::new(video_mode, "Rustenstein3D", sfClose, &settings).expect("Error : Cannot create a render_window!");
+    let mut render_window = RenderWindow::new(video_mode, "Rustenstein3D", Close, &settings).expect("Error : Cannot create a render_window!");
     
     // set the framerate limit to 30 fps.
     render_window.set_framerate_limit(40);

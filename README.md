@@ -14,3 +14,6 @@ Then use rustpkg to build rustenstein3D.
 > rustpkg install rustenstein3D
 ```
 
+Screenshot
+==========
+![rustenstein screenshot](img/screen.png "rustenstein3D screenshot")

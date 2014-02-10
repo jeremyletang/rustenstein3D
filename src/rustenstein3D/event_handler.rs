@@ -6,14 +6,12 @@ use rsfml::window::mouse::*;
 use rsfml::system::Vector2i;
 
 pub struct EventHandler {
-    render_window : @mut RenderWindow,
     events : ~[event::Event]
 }
 
 impl EventHandler {
-    pub fn new(render_window : @mut RenderWindow) -> EventHandler {
+    pub fn new() -> EventHandler {
         EventHandler {
-            render_window : render_window,
             events : ~[]
         }
     }
@@ -158,9 +156,9 @@ impl EventHandler {
         false
     }
 
-    pub fn get_mouse_position(&self) -> Vector2i {
-        self.render_window.get_mouse_position()
-    }
+    // pub fn get_mouse_position(&self) -> Vector2i {
+    //     self.render_window.get_mouse_position()
+    // }
 
     pub fn get_events(&self) -> ~[event::Event] {
         let mut r_events : ~[event::Event] = ~[];
@@ -170,11 +168,11 @@ impl EventHandler {
         r_events
     }
 
-    pub fn update_events(&mut self) -> () {
+    pub fn update_events(&mut self, render_window: &mut RenderWindow) -> () {
         self.events.clear();
         let mut ev;
         loop {
-            ev = self.render_window.poll_event();
+            ev = render_window.poll_event();
             match ev {
                 event::NoEvent => break,
                 _ => self.events.push(ev)

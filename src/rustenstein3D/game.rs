@@ -8,24 +8,25 @@ use rsfml::graphics::{RenderWindow, Font, Color};
 use rsfml::window::keyboard;
 
 pub struct GameLoop<'s> {
-    priv render_window : @mut RenderWindow,
+    priv render_window : RenderWindow,
     priv fps_handler : Option<FPSHandler<'s>>,
-    priv event_handler : @mut EventHandler,
+    priv event_handler : EventHandler,
     priv clear_color : Color,
     priv game_mode : GameMode<'s>,
     priv texture_loader : &'s TextureLoader
 }
 
 impl<'s> GameLoop<'s> {
-    pub fn new(render_window : @mut RenderWindow,
+    pub fn new(render_window : RenderWindow,
                texture_loader : &'s TextureLoader,
                noground : bool) -> GameLoop<'s> {
+        let tmp_size = render_window.get_size();
         GameLoop {
             render_window : render_window,
             fps_handler : None,
-            event_handler : @mut EventHandler::new(render_window),
+            event_handler : EventHandler::new(),
             clear_color : Color::new_RGB(3, 64, 59),
-            game_mode : GameMode::new(render_window.get_size(), texture_loader, noground),
+            game_mode : GameMode::new(tmp_size, texture_loader, noground),
             texture_loader : texture_loader
         }
     }
@@ -34,7 +35,7 @@ impl<'s> GameLoop<'s> {
                         font : &'s Font) -> (){
         match self.fps_handler {
             Some(_)     => (),
-            None        => self.fps_handler = Some(FPSHandler::new(self.render_window, font))
+            None        => self.fps_handler = Some(FPSHandler::new(font))
         }
     }
 
@@ -53,20 +54,20 @@ impl<'s> GameLoop<'s> {
     }
 
     pub fn update(&mut self) -> () {
-        self.event_handler.update_events();
+        self.event_handler.update_events(&mut self.render_window);
         if self.event_handler.has_closed_event() ||
            self.event_handler.is_key_pressed(keyboard::Escape) {
             self.render_window.close();
         }
-        self.game_mode.update(self.event_handler);
+        self.game_mode.update(&self.event_handler);
         self.fps_handler.get_mut_ref().update();
     }
 
     pub fn draw(&mut self) -> () {
         self.render_window.clear(&self.clear_color);
-        self.game_mode.draw(self.render_window);
+        self.game_mode.draw(&mut self.render_window);
         match self.fps_handler {
-            Some(_)     => self.fps_handler.get_mut_ref().draw(),
+            Some(_)     => self.fps_handler.get_mut_ref().draw(&mut self.render_window),
             None        => {}
         };
         self.render_window.display();
