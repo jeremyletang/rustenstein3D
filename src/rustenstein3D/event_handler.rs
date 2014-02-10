@@ -3,7 +3,6 @@ use rsfml::graphics::RenderWindow;
 use rsfml::window::{event, keyboard};
 use rsfml::window::keyboard::Key;
 use rsfml::window::mouse::*;
-use rsfml::system::Vector2i;
 
 pub struct EventHandler {
     events : ~[event::Event]

@@ -6,13 +6,14 @@ Simple Wolfenstein3D engine in rust.
 Compilation
 ===========
 
-First install rust-sfml in the rustenstein3D workspace.
+First clone the repository with it dependency using the option --recursive :
 
-Then use rustpkg to build rustenstein3D.
 
 ```Shell
-> rustpkg install rustenstein3D
+> git clone --recursive https://github.com/JeremyLetang/rustenstein3D.git
 ```
+
+Then use `make` to build rustenstein3D
 
 Screenshot
 ==========

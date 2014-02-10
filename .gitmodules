@@ -1,0 +1,3 @@
+[submodule "lib/rsfml"]
+	path = lib/rsfml
+	url = https://github.com/JeremyLetang/rust-sfml.git
