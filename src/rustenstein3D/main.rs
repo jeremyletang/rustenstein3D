@@ -5,8 +5,8 @@
 #[feature(globs)];
 #[feature(managed_boxes)];
 
-extern mod native;
-extern mod rsfml;
+extern crate native;
+extern crate rsfml;
 
 use rsfml::graphics::{RenderWindow, Font};
 use rsfml::window::{VideoMode, ContextSettings};
