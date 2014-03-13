@@ -4,6 +4,8 @@
 
 #[feature(globs)];
 #[feature(managed_boxes)];
+#[allow(non_camel_case_types)];
+#[allow(visible_private_types)];
 
 extern crate native;
 extern crate rsfml;
@@ -101,10 +103,10 @@ fn main() -> () {
     let mut i_args = 1;
 
     while i_args < args.len() {
-        match args[i_args] {
-            ~"--help"       => { display_help(); return; },
-            ~"--noground"   => noground = true,
-            ~"-w"           => { 
+        match args[i_args].as_slice() {
+            "--help"       => { display_help(); return; },
+            "--noground"   => noground = true,
+            "-w"           => {
                 if i_args + 2 >= args.len() { fail!("Error missing arguments for -w option."); }
                 width = from_str::<uint>(args[i_args + 1]).expect("Error the first parameter after -w argument is not a width!");
                 height = from_str::<uint>(args[i_args + 2]).expect("Error the second parameter after -w argument is not a width!");
@@ -119,8 +121,11 @@ fn main() -> () {
     let settings = ContextSettings::default();
     let video_mode = VideoMode::new_init(width, height, 32);
     // let video_mode = VideoMode::new_init(512, 384, 32);
-    let mut render_window = RenderWindow::new(video_mode, "Rustenstein3D", Close, &settings).expect("Error : Cannot create a render_window!");
-    
+    let mut render_window = RenderWindow::new(video_mode,
+                                              "Rustenstein3D",
+                                              Close,
+                                              &settings).expect("Error : Cannot create a render_window!");
+
     // set the framerate limit to 30 fps.
     render_window.set_framerate_limit(40);
 
@@ -128,16 +133,20 @@ fn main() -> () {
     render_window.set_mouse_cursor_visible(false);
 
     // set the mouse positon on the center of the window
-    render_window.set_mouse_position(&Vector2i {x : width as i32 / 2, y : height as i32 / 2});
+    render_window.set_mouse_position(&Vector2i {x : width as i32 / 2,
+                                                y : height as i32 / 2});
 
     // Create the font for the FPS_handler.
-    let font = Font::new_from_file("./resources/sansation.ttf").expect("Error : Cannot load font, font resources/sansation.ttf doesn.t exist!");
+    let font = Font::new_from_file("./resources/sansation.ttf")
+        .expect("Error : Cannot load font, font resources/sansation.ttf doesn.t exist!");
 
     // Create the texture loader and load textures
     let texture_loader = load_texture();
 
     // Create the game_loop and activate the fps handler.
-    let mut game_loop = game::GameLoop::new(render_window, &texture_loader, noground);
+    let mut game_loop = game::GameLoop::new(render_window,
+                                            &texture_loader,
+                                            noground);
     game_loop.activate_FPS(&font);
 
     game_loop.run();
