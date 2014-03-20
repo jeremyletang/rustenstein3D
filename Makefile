@@ -26,7 +26,7 @@ rustenstein3D:
 	rustc -o bin/rustenstein3D -L lib/ src/rustenstein3D/main.rs
 
 rsfml:
-	rustc --out-dir=lib lib/rsfml/src/rsfml/lib.rs
+	rustc --out-dir=lib lib/rsfml/src/lib.rs
 
 clean:
 	rm -rf lib/librsfml-*
