@@ -17,12 +17,12 @@ pub struct MiniMap {
 }
 
 impl MiniMap {
-    pub fn new(map : Map, 
+    pub fn new(map : Map,
                window_size : &Vector2u) -> MiniMap {
         let tmp_view = Rc::new(RefCell::new(View::new().unwrap()));
-        (*tmp_view).with_mut(|v| v.set_size2f(window_size.x as f32, window_size.y as f32));
-        (*tmp_view).with_mut(|v| v.set_viewport(&FloatRect::new(0.70, 0.05, 0.25, 0.25)));
-        (*tmp_view).with_mut(|v| v.set_rotation(-90.));
+        (*tmp_view).borrow_mut().set_size2f(window_size.x as f32, window_size.y as f32);
+        (*tmp_view).borrow_mut().set_viewport(&FloatRect::new(0.70, 0.05, 0.25, 0.25));
+        (*tmp_view).borrow_mut().set_rotation(-90.);
         MiniMap {
             map : map,
             active : true,
@@ -44,18 +44,18 @@ impl MiniMap {
         self.active
     }
 
-    pub fn update(&mut self, 
-                  player_position : Vector2f, 
-                  new_rotation : f32) -> () {    
+    pub fn update(&mut self,
+                  player_position : Vector2f,
+                  new_rotation : f32) -> () {
         self.player_pos = player_position;
-        (*self.mini_map_view).with_mut(|v| v.rotate(new_rotation));
-        (*self.mini_map_view).with_mut(|v| v.set_center2f(self.player_pos.x * 80.,
-                                                          self.player_pos.y * 80.));
+        (*self.mini_map_view).borrow_mut().rotate(new_rotation);
+        (*self.mini_map_view).borrow_mut().set_center2f(self.player_pos.x * 80.,
+                                                          self.player_pos.y * 80.);
         self.rotation += new_rotation;
     }
 
-    pub fn draw(&self, 
-                render_window : &mut RenderWindow, 
+    pub fn draw(&self,
+                render_window : &mut RenderWindow,
                 texture_loader : &TextureLoader) -> () {
         let mut block : i32;
         let def_view = render_window.get_default_view();
@@ -69,10 +69,10 @@ impl MiniMap {
                 block = self.map.get_block(&pos).expect("Cannot get block in minimap.");
                 match block {
                     0 => { rect.set_texture(texture_loader.get_texture(block), false);
-                           rect.set_position2f(pos.x as f32 * 80., pos.y as f32 * 80.); 
+                           rect.set_position2f(pos.x as f32 * 80., pos.y as f32 * 80.);
                     },
-                    _ => { rect.set_texture(texture_loader.get_texture(block), false); 
-                           rect.set_position2f(pos.x as f32 * 80., pos.y as f32 * 80.); 
+                    _ => { rect.set_texture(texture_loader.get_texture(block), false);
+                           rect.set_position2f(pos.x as f32 * 80., pos.y as f32 * 80.);
                     }
                 }
                 render_window.draw(&rect);
