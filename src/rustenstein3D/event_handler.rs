@@ -5,7 +5,7 @@ use rsfml::window::keyboard::Key;
 use rsfml::window::mouse::*;
 
 pub struct EventHandler {
-    events : ~[event::Event]
+    pub events : ~[event::Event]
 }
 
 impl EventHandler {

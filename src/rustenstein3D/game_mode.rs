@@ -4,7 +4,7 @@ use rsfml::system::{Vector2u, Vector2f, Vector2i, ToVec};
 use rsfml::window::keyboard;
 
 use map;
-use mini_map::*; 
+use mini_map::*;
 use event_handler::*;
 use raycasting_engine::REngine;
 use texture_loader::TextureLoader;
@@ -12,21 +12,21 @@ use hud::HUD;
 use weapon::Weapon;
 
 pub struct GameMode<'s> {
-    priv window_size : Vector2u,
-    priv map : map::Map,
-    priv mini_map : MiniMap,
-    priv player_position : Vector2f,
-    priv r_engine : REngine,
-    priv texture_loader : &'s TextureLoader,
-    priv hud : HUD<'s>,
-    priv weapon : Weapon<'s>,
-    priv sky : RectangleShape<'s>,
-    priv ground : RectangleShape<'s>
+    window_size : Vector2u,
+    map : map::Map,
+    mini_map : MiniMap,
+    player_position : Vector2f,
+    r_engine : REngine,
+    texture_loader : &'s TextureLoader,
+    hud : HUD<'s>,
+    weapon : Weapon<'s>,
+    sky : RectangleShape<'s>,
+    ground : RectangleShape<'s>
 }
 
 impl<'s> GameMode<'s> {
-    pub fn new(window_size : Vector2u, 
-               texture_loader : &'s TextureLoader, 
+    pub fn new(window_size : Vector2u,
+               texture_loader : &'s TextureLoader,
                noground : bool) -> GameMode<'s> {
         let map = GameMode::get_map();
         let mut sky = RectangleShape::new_init(&Vector2f { x : window_size.x as f32, y : window_size.y as f32 / 2. - 40.}).unwrap();

@@ -12,15 +12,15 @@ pub enum AnimationMode {
 }
 
 pub struct Animation {
-    priv a : u32,
-    priv b : u32,
-    priv offset : u32,
-    priv texture_ids : ~[i32],
-    priv state : AnimationState,
-    priv mode : AnimationMode,
-    priv lag : f32,
-    priv current_texture : u32,
-    priv clock : Clock
+    a : u32,
+    b : u32,
+    offset : u32,
+    texture_ids : ~[i32],
+    state : AnimationState,
+    mode : AnimationMode,
+    lag : f32,
+    current_texture : u32,
+    clock : Clock
 }
 
 impl Animation {

@@ -1,7 +1,7 @@
 use rsfml::graphics::Texture;
 
 pub struct TextureLoader {
-    priv textures : ~[~Texture]
+    textures : ~[~Texture]
 }
 
 impl TextureLoader {
@@ -14,7 +14,7 @@ impl TextureLoader {
     pub fn load_texture(&mut self, texture_path : ~str) -> bool {
         let texture = Texture::new_from_file(texture_path);
         match texture {
-            Some(tex)   => { 
+            Some(tex)   => {
                 self.textures.push(~tex);
                 true
             },
@@ -24,5 +24,5 @@ impl TextureLoader {
 
     pub fn get_texture<'r>(&'r self, index : i32) -> &'r Texture {
         &*self.textures[index]
-    }  
+    }
 }

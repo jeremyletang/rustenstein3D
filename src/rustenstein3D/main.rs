@@ -1,12 +1,12 @@
-#[crate_id = "rustenstein3D"];
-#[license = "MIT"];
-#[crate_type = "bin"];
+#![crate_id = "rustenstein3D"]
+#![license = "MIT"]
+#![crate_type = "bin"]
 
-#[feature(globs)];
-#[feature(managed_boxes)];
-#[allow(non_camel_case_types)];
-#[allow(visible_private_types)];
-#[allow(deprecated_owned_vector)];
+#![feature(globs)]
+#![feature(managed_boxes)]
+#![allow(non_camel_case_types)]
+#![allow(visible_private_types)]
+#![allow(deprecated_owned_vector)]
 
 extern crate native;
 extern crate rsfml;

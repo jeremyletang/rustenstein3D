@@ -8,12 +8,12 @@ use rsfml::graphics::{RenderWindow, Font, Color};
 use rsfml::window::keyboard;
 
 pub struct GameLoop<'s> {
-    priv render_window : RenderWindow,
-    priv fps_handler : Option<FPSHandler<'s>>,
-    priv event_handler : EventHandler,
-    priv clear_color : Color,
-    priv game_mode : GameMode<'s>,
-    priv texture_loader : &'s TextureLoader
+    render_window : RenderWindow,
+    fps_handler : Option<FPSHandler<'s>>,
+    event_handler : EventHandler,
+    clear_color : Color,
+    game_mode : GameMode<'s>,
+    texture_loader : &'s TextureLoader
 }
 
 impl<'s> GameLoop<'s> {

@@ -10,9 +10,9 @@ use rsfml::system::{Clock, Vector2f};
 
 /// Definition of class FPSHandler
 pub struct FPSHandler<'s> {
-    priv fps_clock : Clock,
-    priv text : Text<'s>,
-    priv images : uint
+    fps_clock : Clock,
+    text : Text<'s>,
+    images : uint
 }
 
 /// Implementation of class FPSHandler

@@ -8,23 +8,23 @@ use texture_loader::TextureLoader;
 use map;
 
 pub struct REngine {
-    priv player_position : Vector2f,
-    priv vector_direction : Vector2f,
-    priv cam_plane : Vector2f,
-    priv map : map::Map,
-    priv window_size : Vector2f,
-    priv vertex_array : ~[~VertexArray],
-    priv textures_id : ~[i32],
-    priv ground : ~[~VertexArray],
-    priv sky : ~[~VertexArray],
-    priv noground : bool
+    player_position : Vector2f,
+    vector_direction : Vector2f,
+    cam_plane : Vector2f,
+    map : map::Map,
+    window_size : Vector2f,
+    vertex_array : ~[~VertexArray],
+    textures_id : ~[i32],
+    ground : ~[~VertexArray],
+    sky : ~[~VertexArray],
+    noground : bool
 }
 
 impl REngine {
-    pub fn new(map : map::Map, 
+    pub fn new(map : map::Map,
                window_size : &Vector2f,
                noground : bool) -> REngine {
-        
+
         REngine {
             player_position : Vector2f { x : 22., y : 12. },
             vector_direction : Vector2f { x : -1., y : 0. },
@@ -39,8 +39,8 @@ impl REngine {
         }
     }
 
-    pub fn update<'r>(&'r mut self, 
-                      event_handler : &EventHandler) -> () {   
+    pub fn update<'r>(&'r mut self,
+                      event_handler : &EventHandler) -> () {
         self.textures_id.clear();
         let ray_pos = Vector2f { x : self.player_position.x, y : self.player_position.y };
         let mut ray_dir = Vector2f { x : 0., y : 0. };
@@ -52,7 +52,7 @@ impl REngine {
         let mut draw_end : i32 = 0;
         let mut camera_x : f32;
         let mut side : i32;
-        let mut x : i32 = 0; 
+        let mut x : i32 = 0;
         let mut perp_wall_dist : f32 = 0.;
         let mut wall_x : f32 = 0.;
         while x < self.window_size.x as i32 {
@@ -68,13 +68,13 @@ impl REngine {
 
             // calculate
             self.calculate_step(&ray_dir, &mut step, &ray_pos, &map_pos, &delta_dist, &mut side_dist);
-            
+
             self.hit_wall(&mut map_pos, &mut side_dist, &mut step, &mut delta_dist, &mut side);
-            
+
             self.calculate_wall_height(side, &mut draw_start, &mut draw_end, &map_pos, &ray_pos, &ray_dir, &step, &mut perp_wall_dist);
 
             self.calculate_wall_texture(side, &ray_dir, x, &map_pos, &step, &ray_pos, draw_end, draw_start, &mut wall_x);
-            
+
             if !self.noground {
                 self.calculate_ground(side, &map_pos, wall_x, &ray_dir, perp_wall_dist, &mut draw_end, x);
             }
@@ -119,7 +119,7 @@ impl REngine {
             weight = (current_dist - dist_player) / (perp_wall_dist - dist_player);
             current_floor.x = weight * floor.x + (1. - weight) * self.player_position.x;
             current_floor.y = weight * floor.y + (1. - weight) * self.player_position.y;
-            
+
             tex_coord.x = ((current_floor.x * 128.) as i32 % 128) as f32;
             tex_coord.y = ((current_floor.y * 128.) as i32 % 128) as f32;
 
@@ -140,23 +140,23 @@ impl REngine {
         }
     }
 
-    fn calculate_wall_height(&mut self, 
-                             side : i32, 
-                             draw_start : &mut i32, 
-                             draw_end : &mut i32, 
-                             map_pos : &Vector2i, 
-                             ray_pos : &Vector2f, 
-                             ray_dir : &Vector2f, 
+    fn calculate_wall_height(&mut self,
+                             side : i32,
+                             draw_start : &mut i32,
+                             draw_end : &mut i32,
+                             map_pos : &Vector2i,
+                             ray_pos : &Vector2f,
+                             ray_dir : &Vector2f,
                              step : &Vector2i,
-                             perp_wall_dist : &mut f32) -> () {   
+                             perp_wall_dist : &mut f32) -> () {
         if side == 0 {
             *perp_wall_dist = ((map_pos.x as f32 - ray_pos.x + (1 - step.x) as f32 / 2. ) / ray_dir.x).abs();
         } else {
             *perp_wall_dist = ((map_pos.y as f32 - ray_pos.y + (1 - step.y) as f32 / 2. ) / ray_dir.y).abs();
         }
-        let line_height : i32 = if *perp_wall_dist as i32 == 0 { 
+        let line_height : i32 = if *perp_wall_dist as i32 == 0 {
             self.window_size.y as i32
-        } else { 
+        } else {
             ((self.window_size.y / *perp_wall_dist ) as i32).abs()
         };
         *draw_start = (self.window_size.y as i32 / 2) -  (line_height / 2) ;
@@ -169,16 +169,16 @@ impl REngine {
         }
     }
 
-    fn calculate_wall_texture(&mut self, 
-                              side : i32, 
-                              ray_dir : &Vector2f, 
-                              x : i32, 
-                              map_pos : &Vector2i, 
-                              step : &Vector2i, 
-                              ray_pos : &Vector2f, 
-                              draw_end : i32, 
+    fn calculate_wall_texture(&mut self,
+                              side : i32,
+                              ray_dir : &Vector2f,
+                              x : i32,
+                              map_pos : &Vector2i,
+                              step : &Vector2i,
+                              ray_pos : &Vector2f,
+                              draw_end : i32,
                               draw_start : i32,
-                              wall_x : &mut f32) -> () {   
+                              wall_x : &mut f32) -> () {
         let mut texture_id = self.map.get_block(map_pos).expect("Error on raycasting_engine line 87.");
 
         if side == 1 {
@@ -201,16 +201,16 @@ impl REngine {
         self.textures_id.push(texture_id);
         self.vertex_array[x].clear();
         self.vertex_array[x].append(&Vertex::new(&Vector2f::new(x as f32, draw_end as f32), &Color::white(), &Vector2f::new(texture_x as f32, 128.)));
-        self.vertex_array[x].append(&Vertex::new(&Vector2f::new(x as f32, draw_start as f32), &Color::white(), &Vector2f::new(texture_x as f32, 0.)));       
+        self.vertex_array[x].append(&Vertex::new(&Vector2f::new(x as f32, draw_start as f32), &Color::white(), &Vector2f::new(texture_x as f32, 0.)));
     }
 
-    fn calculate_step(&self, 
-                      ray_dir : &Vector2f, 
-                      step : &mut Vector2i, 
-                      ray_pos : &Vector2f, 
-                      map_pos : &Vector2i, 
-                      delta_dist : &Vector2f, 
-                      side_dist : &mut Vector2f) -> () {   
+    fn calculate_step(&self,
+                      ray_dir : &Vector2f,
+                      step : &mut Vector2i,
+                      ray_pos : &Vector2f,
+                      map_pos : &Vector2i,
+                      delta_dist : &Vector2f,
+                      side_dist : &mut Vector2f) -> () {
         if ray_dir.x < 0. {
             step.x = -1;
             side_dist.x = (ray_pos.x - map_pos.x as f32) * delta_dist.x;
@@ -227,12 +227,12 @@ impl REngine {
         }
     }
 
-    fn hit_wall(&self, 
-                map_pos : &mut Vector2i, 
-                side_dist : &mut Vector2f, 
-                step : &mut Vector2i, 
-                delta_dist : &mut Vector2f, 
-                side : &mut i32) -> () {   
+    fn hit_wall(&self,
+                map_pos : &mut Vector2i,
+                side_dist : &mut Vector2f,
+                step : &mut Vector2i,
+                delta_dist : &mut Vector2f,
+                side : &mut i32) -> () {
         let mut hit : bool = false;
         while hit == false {
             if side_dist.x < side_dist.y {
@@ -254,9 +254,9 @@ impl REngine {
         }
     }
 
-    fn update_events(&mut self, 
-                     event_handler : &EventHandler) -> () { 
-        let mut pos = Vector2i { x : 0, y : 0 };   
+    fn update_events(&mut self,
+                     event_handler : &EventHandler) -> () {
+        let mut pos = Vector2i { x : 0, y : 0 };
         if event_handler.is_key_pressed(keyboard::W) {
             pos.x = (self.player_position.x + (self.vector_direction.x * 0.1)) as i32;
             pos.y = self.player_position.y as i32;
@@ -322,8 +322,8 @@ impl REngine {
         self.player_position.clone()
     }
 
-    pub fn draw<'r>(&self, 
-                    render_window : &'r mut RenderWindow, 
+    pub fn draw<'r>(&self,
+                    render_window : &'r mut RenderWindow,
                     texture_loader : &'r TextureLoader) -> () {
         let mut i : i32 = 0;
         let mut render_states = RenderStates::default();

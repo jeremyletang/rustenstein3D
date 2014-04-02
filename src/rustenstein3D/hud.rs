@@ -5,13 +5,13 @@ use texture_loader::TextureLoader;
 use animation::*;
 
 pub struct HUD<'s> {
-    priv window_size : Vector2f,
-    priv background : RectangleShape<'s>,
-    priv hud_vertex_array : VertexArray,
-    priv face : RectangleShape<'s>,
-    priv face_animation : Animation,
-    priv texture_loader : &'s TextureLoader,
-    priv face_clock : Clock
+    window_size : Vector2f,
+    background : RectangleShape<'s>,
+    hud_vertex_array : VertexArray,
+    face : RectangleShape<'s>,
+    face_animation : Animation,
+    texture_loader : &'s TextureLoader,
+    face_clock : Clock
 }
 
 impl<'s> HUD<'s> {

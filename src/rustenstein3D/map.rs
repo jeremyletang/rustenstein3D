@@ -2,8 +2,8 @@ use rsfml::system::{Vector2i, Vector2f};
 
 #[deriving(Clone)]
 pub struct Map {
-    priv map : ~[i32],
-    priv map_size : Vector2i
+    map : ~[i32],
+    map_size : Vector2i
 }
 
 enum Orientation {

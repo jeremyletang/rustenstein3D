@@ -9,11 +9,11 @@ use texture_loader::TextureLoader;
 use map::*;
 
 pub struct MiniMap {
-    priv map : Map,
-    priv active : bool,
-    priv mini_map_view : Rc<RefCell<View>>,
-    priv player_pos : Vector2f,
-    priv rotation : f32
+    map : Map,
+    active : bool,
+    mini_map_view : Rc<RefCell<View>>,
+    player_pos : Vector2f,
+    rotation : f32
 }
 
 impl MiniMap {
