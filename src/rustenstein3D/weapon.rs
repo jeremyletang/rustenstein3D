@@ -71,25 +71,25 @@ impl<'s> Weapon<'s> {
 
         if self.mouse_fire == false {
             match event_handler.has_mouse_button_pressed_event(mouse::MouseLeft) {
-                Some(_) => { self.animations[self.current_weapon].set_state(Play) ; self.mouse_fire = true },
+                Some(_) => { self.animations[(self.current_weapon) as uint].set_state(Play) ; self.mouse_fire = true },
                 None    => {}
             };
         } else {
             match event_handler.has_mouse_button_released_event(mouse::MouseLeft) {
                 Some(_) => { self.mouse_fire = false },
-                None    => self.animations[self.current_weapon].set_state(Play)
+                None    => self.animations[(self.current_weapon) as uint].set_state(Play)
             };
         }
 
         if event_handler.is_key_pressed(keyboard::E) {
-            self.animations[self.current_weapon].set_state(Play);
+            self.animations[(self.current_weapon) as uint].set_state(Play);
         }
-        self.animations[self.current_weapon].update();
+        self.animations[(self.current_weapon) as uint].update();
     }
 
     pub fn draw<'r>(&'r mut self, render_window : &'r mut RenderWindow) -> () {
-        self.weapons.set_texture(self.texture_loader.get_texture(self.animations[self.current_weapon].get_current_texture_id()), false);
-        self.shadows.set_texture(self.texture_loader.get_texture(self.shadows_id[self.current_weapon]), false);
+        self.weapons.set_texture(self.texture_loader.get_texture(self.animations[(self.current_weapon) as uint].get_current_texture_id()), false);
+        self.shadows.set_texture(self.texture_loader.get_texture(self.shadows_id[(self.current_weapon) as uint]), false);
         render_window.draw(&self.weapons);
         render_window.draw(&self.shadows);
     }

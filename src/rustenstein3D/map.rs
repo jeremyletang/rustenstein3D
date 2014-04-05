@@ -25,8 +25,8 @@ impl Map {
         }
     }
 
-    pub fn get_block_with_orientation<'r>(&self, 
-                                          block_orientation : Orientation, 
+    pub fn get_block_with_orientation<'r>(&self,
+                                          block_orientation : Orientation,
                                           position : &'r Vector2i) -> Option<i32> {
         match block_orientation {
             Top     => self.handle_top(position),
@@ -36,7 +36,7 @@ impl Map {
             Top_Left    => self.handle_top_left(position),
             Top_Right   => self.handle_top_right(position),
             Bottom_Left     => self.handle_bottom_left(position),
-            Bottom_Right    => self.handle_bottom_right(position)        
+            Bottom_Right    => self.handle_bottom_right(position)
         }
     }
 
@@ -46,9 +46,9 @@ impl Map {
            position.x > self.map_size.x ||
            position.y > self.map_size.y {
             return None;
-        } 
+        }
         else {
-            return Some(self.map[position.y * self.map_size.x + position.x]);
+            return Some(self.map[(position.y * self.map_size.x + position.x) as uint]);
         }
     }
 

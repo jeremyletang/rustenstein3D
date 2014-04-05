@@ -23,6 +23,6 @@ impl TextureLoader {
     }
 
     pub fn get_texture<'r>(&'r self, index : i32) -> &'r Texture {
-        &*self.textures[index]
+        &*self.textures[(index) as uint]
     }
 }
