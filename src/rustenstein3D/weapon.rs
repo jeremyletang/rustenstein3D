@@ -8,7 +8,7 @@ use texture_loader::TextureLoader;
 
 pub struct Weapon<'s> {
     weapons : RectangleShape<'s>,
-    animations : ~[Animation],
+    animations : Vec<Animation>,
     texture_loader : &'s TextureLoader,
     shadows : RectangleShape<'s>,
     shadows_id : ~[i32],
@@ -41,8 +41,8 @@ impl<'s> Weapon<'s> {
         tmp_shadow
     }
 
-    fn initialize_animation() -> ~[Animation] {
-        let mut animations = ~[];
+    fn initialize_animation() -> Vec<Animation> {
+        let mut animations = Vec::new();
         animations.push(Animation::new(~[12, 13, 14, 15, 16, 17], Stop, PlayOnce, 0.07, 3));
         animations.push(Animation::new(~[19, 20, 21, 22, 23, 24], Stop, PlayOnce, 0.07, 3));
         animations.push(Animation::new(~[26, 27, 28, 29, 30, 31], Stop, PlayOnce, 0.07, 3));
@@ -71,24 +71,24 @@ impl<'s> Weapon<'s> {
 
         if self.mouse_fire == false {
             match event_handler.has_mouse_button_pressed_event(mouse::MouseLeft) {
-                Some(_) => { self.animations[(self.current_weapon) as uint].set_state(Play) ; self.mouse_fire = true },
+                Some(_) => { self.animations.get_mut(self.current_weapon as uint).set_state(Play) ; self.mouse_fire = true },
                 None    => {}
             };
         } else {
             match event_handler.has_mouse_button_released_event(mouse::MouseLeft) {
                 Some(_) => { self.mouse_fire = false },
-                None    => self.animations[(self.current_weapon) as uint].set_state(Play)
+                None    => self.animations.get_mut(self.current_weapon as uint).set_state(Play)
             };
         }
 
         if event_handler.is_key_pressed(keyboard::E) {
-            self.animations[(self.current_weapon) as uint].set_state(Play);
+            self.animations.get_mut(self.current_weapon as uint).set_state(Play);
         }
-        self.animations[(self.current_weapon) as uint].update();
+        self.animations.get_mut(self.current_weapon as uint).update();
     }
 
     pub fn draw<'r>(&'r mut self, render_window : &'r mut RenderWindow) -> () {
-        self.weapons.set_texture(self.texture_loader.get_texture(self.animations[(self.current_weapon) as uint].get_current_texture_id()), false);
+        self.weapons.set_texture(self.texture_loader.get_texture(self.animations.get_mut(self.current_weapon as uint).get_current_texture_id()), false);
         self.shadows.set_texture(self.texture_loader.get_texture(self.shadows_id[(self.current_weapon) as uint]), false);
         render_window.draw(&self.weapons);
         render_window.draw(&self.shadows);

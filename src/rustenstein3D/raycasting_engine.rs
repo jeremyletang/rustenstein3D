@@ -13,10 +13,10 @@ pub struct REngine {
     cam_plane : Vector2f,
     map : map::Map,
     window_size : Vector2f,
-    vertex_array : ~[~VertexArray],
-    textures_id : ~[i32],
-    ground : ~[~VertexArray],
-    sky : ~[~VertexArray],
+    vertex_array : Vec<~VertexArray>,
+    textures_id : Vec<i32>,
+    ground : Vec<~VertexArray>,
+    sky : Vec<~VertexArray>,
     noground : bool
 }
 
@@ -32,7 +32,7 @@ impl REngine {
             map : map,
             window_size : Vector2f { x : window_size.x, y : window_size.y - 80. },
             vertex_array : REngine::create_line_array(window_size),
-            textures_id : ~[],
+            textures_id : Vec::new(),
             ground : REngine::create_ground_array(window_size),
             sky : REngine::create_ground_array(window_size),
             noground : noground
@@ -111,8 +111,8 @@ impl REngine {
             *draw_end = self.window_size.y as i32;
         }
         let mut y : i32 = *draw_end + 1;
-        self.ground[(x) as uint].clear();
-        self.sky[(x) as uint].clear();
+        self.ground.get_mut(x as uint).clear();
+        self.sky.get_mut(x as uint).clear();
         let mut vertex = Vertex::default();
         while y < self.window_size.y as i32 {
             current_dist = self.window_size.y / (2. * y as f32 - self.window_size.y as f32);
@@ -128,13 +128,13 @@ impl REngine {
             vertex.position.y = pos.y;
             vertex.tex_coords.x = tex_coord.x;
             vertex.tex_coords.y = tex_coord.y;
-            self.ground[(x) as uint].append(&vertex);
+            self.ground.get_mut(x as uint).append(&vertex);
             pos.y = self.window_size.y - y as f32;
             vertex.position.x = pos.x;
             vertex.position.y = pos.y;
             vertex.tex_coords.x = tex_coord.x;
             vertex.tex_coords.y = tex_coord.y;
-            self.sky[(x) as uint].append(&vertex);
+            self.sky.get_mut(x as uint).append(&vertex);
 
             y += 1;
         }
@@ -199,9 +199,9 @@ impl REngine {
         if side == 1 {texture_id += 5;}
 
         self.textures_id.push(texture_id);
-        self.vertex_array[(x) as uint].clear();
-        self.vertex_array[(x) as uint].append(&Vertex::new(&Vector2f::new(x as f32, draw_end as f32), &Color::white(), &Vector2f::new(texture_x as f32, 128.)));
-        self.vertex_array[(x) as uint].append(&Vertex::new(&Vector2f::new(x as f32, draw_start as f32), &Color::white(), &Vector2f::new(texture_x as f32, 0.)));
+        self.vertex_array.get_mut(x as uint).clear();
+        self.vertex_array.get_mut(x as uint).append(&Vertex::new(&Vector2f::new(x as f32, draw_end as f32), &Color::white(), &Vector2f::new(texture_x as f32, 128.)));
+        self.vertex_array.get_mut(x as uint).append(&Vertex::new(&Vector2f::new(x as f32, draw_start as f32), &Color::white(), &Vector2f::new(texture_x as f32, 0.)));
     }
 
     fn calculate_step(&self,
@@ -295,9 +295,9 @@ impl REngine {
         self.cam_plane.y = old_cam_plane_x * (move).sin() + self.cam_plane.y * (move).cos();
     }
 
-    fn create_line_array<'r>(window_size : &'r Vector2f) -> ~[~VertexArray] {
+    fn create_line_array<'r>(window_size : &'r Vector2f) -> Vec<~VertexArray> {
         let mut i = 0;
-        let mut lines : ~[~VertexArray] = ~[];
+        let mut lines : Vec<~VertexArray> = Vec::new();
         while i < window_size.x as i32{
             let mut line : ~VertexArray = ~VertexArray::new().expect("Cannot allocate a vertex_array.");
             line.set_primitive_type(Lines);
@@ -307,9 +307,9 @@ impl REngine {
         lines
     }
 
-    fn create_ground_array<'r>(window_size : &'r Vector2f) -> ~[~VertexArray] {
+    fn create_ground_array<'r>(window_size : &'r Vector2f) -> Vec<~VertexArray> {
         let mut i = 0;
-        let mut lines : ~[~VertexArray] = ~[];
+        let mut lines : Vec<~VertexArray> = Vec::new();
         while i < window_size.x as i32{
             let line : ~VertexArray = ~VertexArray::new().expect("Cannot allocate a vertex_array.");
             lines.push(line);
@@ -328,7 +328,7 @@ impl REngine {
         let mut i : i32 = 0;
         let mut render_states = RenderStates::default();
         for line in self.vertex_array.iter() {
-            render_states.texture = Some(texture_loader.get_texture(self.textures_id[(i) as uint]));
+            render_states.texture = Some(texture_loader.get_texture(*self.textures_id.get(i as uint)));
             render_window.draw_with_renderstates(*line, &mut render_states);
             i += 1;
         }

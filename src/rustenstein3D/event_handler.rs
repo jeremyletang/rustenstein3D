@@ -5,13 +5,13 @@ use rsfml::window::keyboard::Key;
 use rsfml::window::mouse::*;
 
 pub struct EventHandler {
-    pub events : ~[event::Event]
+    pub events : Vec<event::Event>
 }
 
 impl EventHandler {
     pub fn new() -> EventHandler {
         EventHandler {
-            events : ~[]
+            events : Vec::new()
         }
     }
 
@@ -91,7 +91,7 @@ impl EventHandler {
      for ev in self.events.iter() {
          match *ev {
              event::MouseWheelMoved { delta, x, y }     => return Some((delta, x, y)),
-             _                                          => {} 
+             _                                          => {}
          }
      }
      None
@@ -129,7 +129,7 @@ impl EventHandler {
      for ev in self.events.iter() {
          match *ev {
              event::MouseMoved { x, y }     => return Some((x, y)),
-             _                           => {} 
+             _                           => {}
          }
      }
      None
@@ -139,7 +139,7 @@ impl EventHandler {
         for ev in self.events.iter() {
             match *ev {
                 event::MouseEntered     => return true,
-                _                       => {} 
+                _                       => {}
             }
         }
         false
@@ -149,7 +149,7 @@ impl EventHandler {
         for ev in self.events.iter() {
             match *ev {
                 event::MouseLeft    => return true,
-                _                   => {} 
+                _                   => {}
             }
         }
         false
@@ -159,8 +159,8 @@ impl EventHandler {
     //     self.render_window.get_mouse_position()
     // }
 
-    pub fn get_events(&self) -> ~[event::Event] {
-        let mut r_events : ~[event::Event] = ~[];
+    pub fn get_events(&self) -> Vec<event::Event> {
+        let mut r_events = Vec::new();
         for ev in self.events.iter() {
             r_events.push(*ev)
         }
@@ -175,7 +175,7 @@ impl EventHandler {
             match ev {
                 event::NoEvent => break,
                 _ => self.events.push(ev)
-            }   
+            }
         }
     }
 }

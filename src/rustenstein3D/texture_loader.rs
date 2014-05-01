@@ -1,13 +1,13 @@
 use rsfml::graphics::Texture;
 
 pub struct TextureLoader {
-    textures : ~[~Texture]
+    textures : Vec<~Texture>
 }
 
 impl TextureLoader {
     pub fn new() -> TextureLoader {
         TextureLoader {
-            textures : ~[]
+            textures : Vec::new()
         }
     }
 
@@ -23,6 +23,6 @@ impl TextureLoader {
     }
 
     pub fn get_texture<'r>(&'r self, index : i32) -> &'r Texture {
-        &*self.textures[(index) as uint]
+        &**(self.textures.get(index as uint))
     }
 }
