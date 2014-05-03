@@ -47,49 +47,49 @@ fn display_help() -> () {
 
 fn load_texture() -> texture_loader::TextureLoader {
     let mut texture_loader = texture_loader::TextureLoader::new();
-    if texture_loader.load_texture(~"./resources/ground.tga") == false || // 0
-       texture_loader.load_texture(~"./resources/1.tga") == false || // 1
-       texture_loader.load_texture(~"./resources/2.tga") == false || // 2
-       texture_loader.load_texture(~"./resources/3.tga") == false || // 3
-       texture_loader.load_texture(~"./resources/4.tga") == false || // 4
-       texture_loader.load_texture(~"./resources/5.tga") == false || // 5
-       texture_loader.load_texture(~"./resources/6.tga") == false || // 6
-       texture_loader.load_texture(~"./resources/7.tga") == false || // 7
-       texture_loader.load_texture(~"./resources/8.tga") == false || // 8
-       texture_loader.load_texture(~"./resources/9.tga") == false || // 9
-       texture_loader.load_texture(~"./resources/10.tga") == false || // 10
-       texture_loader.load_texture(~"./resources/sky.tga") == false || // 11
-       texture_loader.load_texture(~"./resources/weapons/gun_1.png") == false || // 12
-       texture_loader.load_texture(~"./resources/weapons/gun_2.png") == false || // 13
-       texture_loader.load_texture(~"./resources/weapons/gun_3.png") == false || // 14
-       texture_loader.load_texture(~"./resources/weapons/gun_4.png") == false || // 15
-       texture_loader.load_texture(~"./resources/weapons/gun_5.png") == false || // 16
-       texture_loader.load_texture(~"./resources/weapons/gun_6.png") == false || // 17
-       texture_loader.load_texture(~"./resources/weapons/gun_shadow.png") == false || // 18
-       texture_loader.load_texture(~"./resources/weapons/gun2_1.png") == false || // 19
-       texture_loader.load_texture(~"./resources/weapons/gun2_2.png") == false || // 20
-       texture_loader.load_texture(~"./resources/weapons/gun2_3.png") == false || // 21
-       texture_loader.load_texture(~"./resources/weapons/gun2_4.png") == false || // 22
-       texture_loader.load_texture(~"./resources/weapons/gun2_5.png") == false || // 23
-       texture_loader.load_texture(~"./resources/weapons/gun2_6.png") == false || // 24
-       texture_loader.load_texture(~"./resources/weapons/gun2_shadow.png") == false || // 25
-       texture_loader.load_texture(~"./resources/weapons/gun3_1.png") == false || // 26
-       texture_loader.load_texture(~"./resources/weapons/gun3_2.png") == false || // 27
-       texture_loader.load_texture(~"./resources/weapons/gun3_3.png") == false || // 28
-       texture_loader.load_texture(~"./resources/weapons/gun3_4.png") == false || // 29
-       texture_loader.load_texture(~"./resources/weapons/gun3_5.png") == false || // 30
-       texture_loader.load_texture(~"./resources/weapons/gun3_6.png") == false || // 31
-       texture_loader.load_texture(~"./resources/weapons/gun3_shadow.png") == false || // 32
-       texture_loader.load_texture(~"./resources/weapons/cut_1.png") == false || // 33
-       texture_loader.load_texture(~"./resources/weapons/cut_2.png") == false || // 34
-       texture_loader.load_texture(~"./resources/weapons/cut_3.png") == false || // 35
-       texture_loader.load_texture(~"./resources/weapons/cut_4.png") == false || // 36
-       texture_loader.load_texture(~"./resources/weapons/cut_5.png") == false || // 37
-       texture_loader.load_texture(~"./resources/weapons/cut_6.png") == false || //38
-       texture_loader.load_texture(~"./resources/weapons/cut_shadow.png") == false || // 39
-       texture_loader.load_texture(~"./resources/face1.png") == false || //40
-       texture_loader.load_texture(~"./resources/face2.png") == false || //41
-       texture_loader.load_texture(~"./resources/face3.png") == false { //42
+    if texture_loader.load_texture("./resources/ground.tga".to_owned()) == false || // 0
+       texture_loader.load_texture("./resources/1.tga".to_owned()) == false || // 1
+       texture_loader.load_texture("./resources/2.tga".to_owned()) == false || // 2
+       texture_loader.load_texture("./resources/3.tga".to_owned()) == false || // 3
+       texture_loader.load_texture("./resources/4.tga".to_owned()) == false || // 4
+       texture_loader.load_texture("./resources/5.tga".to_owned()) == false || // 5
+       texture_loader.load_texture("./resources/6.tga".to_owned()) == false || // 6
+       texture_loader.load_texture("./resources/7.tga".to_owned()) == false || // 7
+       texture_loader.load_texture("./resources/8.tga".to_owned()) == false || // 8
+       texture_loader.load_texture("./resources/9.tga".to_owned()) == false || // 9
+       texture_loader.load_texture("./resources/10.tga".to_owned()) == false || // 10
+       texture_loader.load_texture("./resources/sky.tga".to_owned()) == false || // 11
+       texture_loader.load_texture("./resources/weapons/gun_1.png".to_owned()) == false || // 12
+       texture_loader.load_texture("./resources/weapons/gun_2.png".to_owned()) == false || // 13
+       texture_loader.load_texture("./resources/weapons/gun_3.png".to_owned()) == false || // 14
+       texture_loader.load_texture("./resources/weapons/gun_4.png".to_owned()) == false || // 15
+       texture_loader.load_texture("./resources/weapons/gun_5.png".to_owned()) == false || // 16
+       texture_loader.load_texture("./resources/weapons/gun_6.png".to_owned()) == false || // 17
+       texture_loader.load_texture("./resources/weapons/gun_shadow.png".to_owned()) == false || // 18
+       texture_loader.load_texture("./resources/weapons/gun2_1.png".to_owned()) == false || // 19
+       texture_loader.load_texture("./resources/weapons/gun2_2.png".to_owned()) == false || // 20
+       texture_loader.load_texture("./resources/weapons/gun2_3.png".to_owned()) == false || // 21
+       texture_loader.load_texture("./resources/weapons/gun2_4.png".to_owned()) == false || // 22
+       texture_loader.load_texture("./resources/weapons/gun2_5.png".to_owned()) == false || // 23
+       texture_loader.load_texture("./resources/weapons/gun2_6.png".to_owned()) == false || // 24
+       texture_loader.load_texture("./resources/weapons/gun2_shadow.png".to_owned()) == false || // 25
+       texture_loader.load_texture("./resources/weapons/gun3_1.png".to_owned()) == false || // 26
+       texture_loader.load_texture("./resources/weapons/gun3_2.png".to_owned()) == false || // 27
+       texture_loader.load_texture("./resources/weapons/gun3_3.png".to_owned()) == false || // 28
+       texture_loader.load_texture("./resources/weapons/gun3_4.png".to_owned()) == false || // 29
+       texture_loader.load_texture("./resources/weapons/gun3_5.png".to_owned()) == false || // 30
+       texture_loader.load_texture("./resources/weapons/gun3_6.png".to_owned()) == false || // 31
+       texture_loader.load_texture("./resources/weapons/gun3_shadow.png".to_owned()) == false || // 32
+       texture_loader.load_texture("./resources/weapons/cut_1.png".to_owned()) == false || // 33
+       texture_loader.load_texture("./resources/weapons/cut_2.png".to_owned()) == false || // 34
+       texture_loader.load_texture("./resources/weapons/cut_3.png".to_owned()) == false || // 35
+       texture_loader.load_texture("./resources/weapons/cut_4.png".to_owned()) == false || // 36
+       texture_loader.load_texture("./resources/weapons/cut_5.png".to_owned()) == false || // 37
+       texture_loader.load_texture("./resources/weapons/cut_6.png".to_owned()) == false || //38
+       texture_loader.load_texture("./resources/weapons/cut_shadow.png".to_owned()) == false || // 39
+       texture_loader.load_texture("./resources/face1.png".to_owned()) == false || //40
+       texture_loader.load_texture("./resources/face2.png".to_owned()) == false || //41
+       texture_loader.load_texture("./resources/face3.png".to_owned()) == false { //42
         fail!("Error : Cannot load texture.");
     }
     texture_loader
