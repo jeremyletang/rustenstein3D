@@ -1,7 +1,7 @@
 use rsfml::graphics::Texture;
 
 pub struct TextureLoader {
-    textures : Vec<~Texture>
+    textures : Vec<Box<Texture>>
 }
 
 impl TextureLoader {
@@ -15,7 +15,7 @@ impl TextureLoader {
         let texture = Texture::new_from_file(texture_path);
         match texture {
             Some(tex)   => {
-                self.textures.push(~tex);
+                self.textures.push(box tex);
                 true
             },
             None        => false

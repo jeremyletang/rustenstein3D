@@ -13,10 +13,10 @@ pub struct REngine {
     cam_plane : Vector2f,
     map : map::Map,
     window_size : Vector2f,
-    vertex_array : Vec<~VertexArray>,
+    vertex_array : Vec<Box<VertexArray>>,
     textures_id : Vec<i32>,
-    ground : Vec<~VertexArray>,
-    sky : Vec<~VertexArray>,
+    ground : Vec<Box<VertexArray>>,
+    sky : Vec<Box<VertexArray>>,
     noground : bool
 }
 
@@ -295,11 +295,11 @@ impl REngine {
         self.cam_plane.y = old_cam_plane_x * (move).sin() + self.cam_plane.y * (move).cos();
     }
 
-    fn create_line_array<'r>(window_size : &'r Vector2f) -> Vec<~VertexArray> {
+    fn create_line_array<'r>(window_size : &'r Vector2f) -> Vec<Box<VertexArray>> {
         let mut i = 0;
-        let mut lines : Vec<~VertexArray> = Vec::new();
+        let mut lines : Vec<Box<VertexArray>> = Vec::new();
         while i < window_size.x as i32{
-            let mut line : ~VertexArray = ~VertexArray::new().expect("Cannot allocate a vertex_array.");
+            let mut line : Box<VertexArray> = box VertexArray::new().expect("Cannot allocate a vertex_array.");
             line.set_primitive_type(Lines);
             lines.push(line);
             i += 1;
@@ -307,11 +307,11 @@ impl REngine {
         lines
     }
 
-    fn create_ground_array<'r>(window_size : &'r Vector2f) -> Vec<~VertexArray> {
+    fn create_ground_array<'r>(window_size : &'r Vector2f) -> Vec<Box<VertexArray>> {
         let mut i = 0;
-        let mut lines : Vec<~VertexArray> = Vec::new();
+        let mut lines : Vec<Box<VertexArray>> = Vec::new();
         while i < window_size.x as i32{
-            let line : ~VertexArray = ~VertexArray::new().expect("Cannot allocate a vertex_array.");
+            let line : Box<VertexArray> = box VertexArray::new().expect("Cannot allocate a vertex_array.");
             lines.push(line);
             i += 1;
         }
