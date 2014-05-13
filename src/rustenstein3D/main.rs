@@ -104,13 +104,13 @@ fn main() -> () {
     let mut i_args = 1;
 
     while i_args < args.len() {
-        match args[i_args].as_slice() {
+        match args.get(i_args).as_slice() {
             "--help"       => { display_help(); return; },
             "--noground"   => noground = true,
             "-w"           => {
                 if i_args + 2 >= args.len() { fail!("Error missing arguments for -w option."); }
-                width = from_str::<uint>(args[i_args + 1]).expect("Error the first parameter after -w argument is not a width!");
-                height = from_str::<uint>(args[i_args + 2]).expect("Error the second parameter after -w argument is not a width!");
+                width = from_str::<uint>(*args.get(i_args + 1)).expect("Error the first parameter after -w argument is not a width!");
+                height = from_str::<uint>(*args.get(i_args + 2)).expect("Error the second parameter after -w argument is not a width!");
                 i_args += 2;
             },
             _              => fail!("Error unknown argument."),
