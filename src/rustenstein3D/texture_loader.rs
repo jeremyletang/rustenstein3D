@@ -11,7 +11,7 @@ impl TextureLoader {
         }
     }
 
-    pub fn load_texture(&mut self, texture_path : StrBuf) -> bool {
+    pub fn load_texture(&mut self, texture_path : String) -> bool {
         let texture = Texture::new_from_file(texture_path.as_slice());
         match texture {
             Some(tex)   => {
