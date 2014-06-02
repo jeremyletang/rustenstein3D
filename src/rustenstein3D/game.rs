@@ -1,3 +1,4 @@
+#![allow(non_snake_case_functions)]
 
 use FPS::*;
 use event_handler::*;
