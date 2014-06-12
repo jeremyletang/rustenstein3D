@@ -6,7 +6,7 @@
 #![feature(managed_boxes)]
 #![allow(non_camel_case_types)]
 #![allow(visible_private_types)]
-#![allow(deprecated_owned_vector)]
+#![allow(dead_code)]
 
 extern crate native;
 extern crate rsfml;

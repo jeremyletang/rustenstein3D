@@ -15,7 +15,7 @@ pub struct Animation {
     a : u32,
     b : u32,
     offset : u32,
-    texture_ids : ~[i32],
+    texture_ids : Vec<i32>,
     state : AnimationState,
     mode : AnimationMode,
     lag : f32,
@@ -24,7 +24,7 @@ pub struct Animation {
 }
 
 impl Animation {
-    pub fn new(texture_ids : ~[i32], state : AnimationState, mode : AnimationMode, lag : f32, offset : u32) -> Animation {
+    pub fn new(texture_ids : Vec<i32>, state : AnimationState, mode : AnimationMode, lag : f32, offset : u32) -> Animation {
         Animation {
             a : 1,
             b : texture_ids.len() as u32 - 1u32,
@@ -64,7 +64,7 @@ impl Animation {
     }
 
     pub fn get_current_texture_id(&self) -> i32 {
-        self.texture_ids[(self.current_texture) as uint]
+        *self.texture_ids.get(self.current_texture as uint)
     }
 
     pub fn set_loop_anim(&mut self, a : u32, b : u32) -> () {

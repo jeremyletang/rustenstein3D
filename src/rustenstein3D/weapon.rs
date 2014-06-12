@@ -11,7 +11,7 @@ pub struct Weapon<'s> {
     animations : Vec<Animation>,
     texture_loader : &'s TextureLoader,
     shadows : RectangleShape<'s>,
-    shadows_id : ~[i32],
+    shadows_id : Vec<i32>,
     current_weapon : i32,
     mouse_fire : bool
 }
@@ -23,7 +23,7 @@ impl<'s> Weapon<'s> {
             animations : Weapon::initialize_animation(),
             texture_loader : texture_loader,
             shadows : Weapon::initialize_shadows(window_size),
-            shadows_id : ~[18, 25, 32, 39],
+            shadows_id : vec![18, 25, 32, 39],
             current_weapon : 0,
             mouse_fire : false
         }
@@ -43,10 +43,10 @@ impl<'s> Weapon<'s> {
 
     fn initialize_animation() -> Vec<Animation> {
         let mut animations = Vec::new();
-        animations.push(Animation::new(~[12, 13, 14, 15, 16, 17], Stop, PlayOnce, 0.07, 3));
-        animations.push(Animation::new(~[19, 20, 21, 22, 23, 24], Stop, PlayOnce, 0.07, 3));
-        animations.push(Animation::new(~[26, 27, 28, 29, 30, 31], Stop, PlayOnce, 0.07, 3));
-        animations.push(Animation::new(~[33, 34, 35, 36, 37, 38], Stop, PlayOnce, 0.07, 3));
+        animations.push(Animation::new(vec![12, 13, 14, 15, 16, 17], Stop, PlayOnce, 0.07, 3));
+        animations.push(Animation::new(vec![19, 20, 21, 22, 23, 24], Stop, PlayOnce, 0.07, 3));
+        animations.push(Animation::new(vec![26, 27, 28, 29, 30, 31], Stop, PlayOnce, 0.07, 3));
+        animations.push(Animation::new(vec![33, 34, 35, 36, 37, 38], Stop, PlayOnce, 0.07, 3));
 
         animations
     }
@@ -89,7 +89,7 @@ impl<'s> Weapon<'s> {
 
     pub fn draw<'r>(&'r mut self, render_window : &'r mut RenderWindow) -> () {
         self.weapons.set_texture(self.texture_loader.get_texture(self.animations.get_mut(self.current_weapon as uint).get_current_texture_id()), false);
-        self.shadows.set_texture(self.texture_loader.get_texture(self.shadows_id[(self.current_weapon) as uint]), false);
+        self.shadows.set_texture(self.texture_loader.get_texture(*self.shadows_id.get(self.current_weapon as uint)), false);
         render_window.draw(&self.weapons);
         render_window.draw(&self.shadows);
     }

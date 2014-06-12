@@ -2,7 +2,7 @@ use rsfml::system::{Vector2i, Vector2f};
 
 #[deriving(Clone)]
 pub struct Map {
-    map : ~[i32],
+    map : Vec<i32>,
     map_size : Vector2i
 }
 
@@ -18,7 +18,7 @@ enum Orientation {
 }
 
 impl Map {
-    pub fn new<'r>(map : ~[i32], map_size : &'r Vector2f) -> Map {
+    pub fn new<'r>(map : Vec<i32>, map_size : &'r Vector2f) -> Map {
         Map {
             map : map,
             map_size : Vector2i { x : map_size.x as i32, y : map_size.y as i32 }
@@ -48,7 +48,7 @@ impl Map {
             return None;
         }
         else {
-            return Some(self.map[(position.y * self.map_size.x + position.x) as uint]);
+            return Some(*self.map.get((position.y * self.map_size.x + position.x) as uint));
         }
     }
 
