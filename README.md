@@ -17,4 +17,4 @@ Then use `make` to build rustenstein3D
 
 Screenshot
 ==========
-![rustenstein screenshot](img/screen.png "rustenstein3D screenshot")
+![rustenstein screenshot](resources/screen.png "rustenstein3D screenshot")
