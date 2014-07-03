@@ -1,0 +1,11 @@
+[package]
+
+name = "rustenstein3D"
+version = "0.0.1"
+authors = ["Jeremy Letang <letang.jeremy@gmail.com>"]
+
+[[bin]]
+name = "rustenstein3D"
+
+[dependencies.rust-sfml]
+git = "https://github.com/jeremyletang/rust-sfml.git"

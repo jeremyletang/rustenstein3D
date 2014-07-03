@@ -1,5 +1,5 @@
 /build
 /.rust
 /src/rustenstein3D/resources
-/doc_ng
-/src/rsfml
+/target
+/doc
