@@ -1,4 +1,4 @@
-#![crate_id = "rustenstein3D"]
+#![crate_name = "rustenstein3D"]
 #![license = "MIT"]
 #![crate_type = "bin"]
 
