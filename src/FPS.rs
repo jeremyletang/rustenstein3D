@@ -48,7 +48,7 @@ impl<'s> FPSHandler<'s> {
     */
     pub fn update(&mut self) -> () {
         if self.fps_clock.get_elapsed_time().as_seconds() >= 0.33 {
-            self.text.set_string((self.images * 3).to_str().as_slice());
+            self.text.set_string((self.images * 3).to_string().as_slice());
             self.images = 0;
             self.fps_clock.restart();
         }
