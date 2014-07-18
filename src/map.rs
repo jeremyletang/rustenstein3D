@@ -48,7 +48,7 @@ impl Map {
             return None;
         }
         else {
-            return Some(*self.map.get((position.y * self.map_size.x + position.x) as uint));
+            return Some(self.map[(position.y * self.map_size.x + position.x) as uint]);
         }
     }
 

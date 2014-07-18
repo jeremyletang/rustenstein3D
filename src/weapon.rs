@@ -88,8 +88,8 @@ impl<'s> Weapon<'s> {
     }
 
     pub fn draw<'r>(&'r mut self, render_window : &'r mut RenderWindow) -> () {
-        self.weapons.set_texture(self.texture_loader.get_texture(self.animations.get_mut(self.current_weapon as uint).get_current_texture_id()), false);
-        self.shadows.set_texture(self.texture_loader.get_texture(*self.shadows_id.get(self.current_weapon as uint)), false);
+        self.weapons.set_texture(self.texture_loader.get_texture(self.animations[self.current_weapon as uint].get_current_texture_id()), false);
+        self.shadows.set_texture(self.texture_loader.get_texture(self.shadows_id[self.current_weapon as uint]), false);
         render_window.draw(&self.weapons);
         render_window.draw(&self.shadows);
     }

@@ -328,19 +328,19 @@ impl REngine {
         let mut i : i32 = 0;
         let mut render_states = RenderStates::default();
         for line in self.vertex_array.iter() {
-            render_states.texture = Some(texture_loader.get_texture(*self.textures_id.get(i as uint)));
-            render_window.draw_with_renderstates(*line, &mut render_states);
+            render_states.texture = Some(texture_loader.get_texture(self.textures_id[i as uint]));
+            render_window.draw_with_renderstates(&*(*line), &mut render_states);
             i += 1;
         }
 
         render_states.texture = Some(texture_loader.get_texture(0));
         for gr in self.ground.iter() {
-            render_window.draw_with_renderstates(*gr, &mut render_states);
+            render_window.draw_with_renderstates(&*(*gr), &mut render_states);
         }
 
         render_states.texture = Some(texture_loader.get_texture(11));
         for sky in self.sky.iter() {
-            render_window.draw_with_renderstates(*sky, &mut render_states);
+            render_window.draw_with_renderstates(&*(*sky), &mut render_states);
         }
     }
 

@@ -64,7 +64,7 @@ impl Animation {
     }
 
     pub fn get_current_texture_id(&self) -> i32 {
-        *self.texture_ids.get(self.current_texture as uint)
+        self.texture_ids[self.current_texture as uint]
     }
 
     pub fn set_loop_anim(&mut self, a : u32, b : u32) -> () {
