@@ -87,7 +87,7 @@ impl EventHandler {
      None
     }
 
-    pub fn has_mouse_wheel_moved_event(&self) -> Option<(int, int, int)> {
+    pub fn has_mouse_wheel_moved_event(&self) -> Option<(i32, i32, i32)> {
      for ev in self.events.iter() {
          match *ev {
              event::MouseWheelMoved { delta, x, y }     => return Some((delta, x, y)),
@@ -97,7 +97,7 @@ impl EventHandler {
      None
     }
 
-    pub fn has_mouse_button_pressed_event(&self, mouse_button : MouseButton) -> Option<(MouseButton, int, int)> {
+    pub fn has_mouse_button_pressed_event(&self, mouse_button : MouseButton) -> Option<(MouseButton, i32, i32)> {
      for ev in self.events.iter() {
          match *ev {
              event::MouseButtonPressed { button, x, y }     =>  {
@@ -111,7 +111,7 @@ impl EventHandler {
      None
     }
 
-    pub fn has_mouse_button_released_event(&self, mouse_button : MouseButton) -> Option<(MouseButton, int, int)> {
+    pub fn has_mouse_button_released_event(&self, mouse_button : MouseButton) -> Option<(MouseButton, i32, i32)> {
      for ev in self.events.iter() {
          match *ev {
              event::MouseButtonReleased { button, x, y }    =>  {
@@ -125,7 +125,7 @@ impl EventHandler {
      None
     }
 
-    pub fn has_mouse_moved_event(&self) -> Option<(int, int)> {
+    pub fn has_mouse_moved_event(&self) -> Option<(i32, i32)> {
      for ev in self.events.iter() {
          match *ev {
              event::MouseMoved { x, y }     => return Some((x, y)),
