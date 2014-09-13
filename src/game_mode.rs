@@ -1,5 +1,5 @@
 
-use rsfml::graphics::{RenderWindow, RectangleShape, Color};
+use rsfml::graphics::{RenderWindow, RenderTarget, RectangleShape, Color};
 use rsfml::system::{Vector2u, Vector2f, Vector2i, ToVec};
 use rsfml::window::keyboard;
 

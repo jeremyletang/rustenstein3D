@@ -1,4 +1,4 @@
-use rsfml::graphics::{RenderWindow, RectangleShape};
+use rsfml::graphics::{RenderWindow, RenderTarget, RectangleShape};
 use rsfml::window::{keyboard, mouse};
 use rsfml::system::Vector2f;
 

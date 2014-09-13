@@ -2,7 +2,7 @@
 use std::rc::Rc;
 use std::cell::RefCell;
 
-use rsfml::graphics::{RenderWindow, View, Color, FloatRect, RectangleShape};
+use rsfml::graphics::{RenderWindow, RenderTarget, View, Color, FloatRect, RectangleShape};
 use rsfml::system::{Vector2u, Vector2i, Vector2f};
 
 use texture_loader::TextureLoader;
@@ -63,7 +63,7 @@ impl MiniMap {
         let mut pos : Vector2i = Vector2i::new(0, 0);
         let mut rect = RectangleShape::new_init(&Vector2f::new(80., 80.)).unwrap();
         rect.set_fill_color(&Color::new_RGBA(255, 255, 255, 175));
-        render_window.set_view(self.mini_map_view.clone());
+        render_window.set_view(&*self.mini_map_view.borrow());
         while pos.x < map_size.x {
             while pos.y < map_size.y {
                 block = self.map.get_block(&pos).expect("Cannot get block in minimap.");
@@ -85,6 +85,6 @@ impl MiniMap {
         rect.set_origin2f(40., 40.);
         rect.set_position2f(self.player_pos.x as f32 * 80., self.player_pos.y as f32 * 80.);
         render_window.draw(&rect);
-        render_window.set_view(def_view.clone());
+        render_window.set_view(&def_view);
     }
 }

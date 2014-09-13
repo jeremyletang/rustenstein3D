@@ -6,6 +6,7 @@
 #![allow(non_camel_case_types)]
 #![allow(visible_private_types)]
 #![allow(dead_code)]
+#![allow(non_snake_case)]
 
 extern crate native;
 extern crate rsfml;

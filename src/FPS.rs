@@ -5,7 +5,9 @@
 *
 */
 
-use rsfml::graphics::{RenderWindow, Font, Text, Color};
+#![allow(non_snake_case)]
+
+use rsfml::graphics::{RenderWindow, RenderTarget, Font, Text, Color};
 use rsfml::system::{Clock, Vector2f};
 
 /// Definition of class FPSHandler

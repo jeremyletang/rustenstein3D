@@ -1,4 +1,4 @@
-use rsfml::graphics::{RectangleShape, RenderWindow, Color, Vertex, VertexArray, LinesStrip};
+use rsfml::graphics::{RectangleShape, RenderWindow, RenderTarget, Color, Vertex, VertexArray, LinesStrip};
 use rsfml::system::{Vector2f, Clock};
 
 use texture_loader::TextureLoader;

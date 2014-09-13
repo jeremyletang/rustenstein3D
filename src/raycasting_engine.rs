@@ -1,6 +1,6 @@
 
 use rsfml::system::{Vector2f, Vector2i};
-use rsfml::graphics::{VertexArray, Vertex, Color, RenderStates, RenderWindow, Lines};
+use rsfml::graphics::{VertexArray, Vertex, Color, RenderStates, RenderWindow, RenderTarget, Lines};
 use rsfml::window::keyboard;
 
 use event_handler::EventHandler;

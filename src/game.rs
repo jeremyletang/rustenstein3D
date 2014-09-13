@@ -1,11 +1,11 @@
-#![allow(non_snake_case_functions)]
+#![allow(non_snake_case)]
 
 use FPS::*;
 use event_handler::*;
 use game_mode::*;
 use texture_loader::TextureLoader;
 
-use rsfml::graphics::{RenderWindow, Font, Color};
+use rsfml::graphics::{RenderWindow, RenderTarget, Font, Color};
 use rsfml::window::keyboard;
 
 pub struct GameLoop<'s> {
@@ -61,14 +61,14 @@ impl<'s> GameLoop<'s> {
             self.render_window.close();
         }
         self.game_mode.update(&self.event_handler);
-        self.fps_handler.get_mut_ref().update();
+        self.fps_handler.as_mut().unwrap().update();
     }
 
     pub fn draw(&mut self) -> () {
         self.render_window.clear(&self.clear_color);
         self.game_mode.draw(&mut self.render_window);
         match self.fps_handler {
-            Some(_)     => self.fps_handler.get_mut_ref().draw(&mut self.render_window),
+            Some(_)     => self.fps_handler.as_mut().unwrap().draw(&mut self.render_window),
             None        => {}
         };
         self.render_window.display();
